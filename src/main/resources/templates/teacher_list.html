@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Teacher List</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+h2{
+color:#333;
+}
+
+table{
+width:80%;
+margin:auto;
+border-collapse:collapse;
+background:white;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+}
+
+th{
+background:#2193b0;
+color:white;
+}
+
+tr:nth-child(even){
+background:#f2f2f2;
+}
+
+button{
+padding:6px 12px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.edit{
+background:#4CAF50;
+color:white;
+}
+
+.delete{
+background:#e74c3c;
+color:white;
+}
+
+.search-box{
+margin:20px;
+}
+
+select,input{
+padding:6px;
+margin:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>📚 Teacher List</h2>
+
+<!-- 🔎 SEARCH TEACHER -->
+
+<div class="search-box">
+
+<form action="/adi/search-teacher" method="get">
+
+<input type="text" name="name" placeholder="Search Teacher Name">
+
+<button type="submit">Search</button>
+
+</form>
+
+</div>
+
+
+<!-- 📚 VIEW BY SUBJECT -->
+
+<div class="search-box">
+
+<form action="/adi/teachers-by-subject" method="get">
+
+<select name="subject">
+
+<option value="">Select Subject</option>
+<option value="Math">Math</option>
+<option value="Science">Science</option>
+<option value="English">English</option>
+<option value="Physics">Physics</option>
+
+</select>
+
+<button type="submit">View</button>
+
+</form>
+
+</div>
+
+
+<br>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Subject</th>
+<th>Email</th>
+<th>Actions</th>
+</tr>
+
+<tr th:each="teacher : ${teachers}">
+
+<td th:text="${teacher.id}"></td>
+
+<td th:text="${teacher.name}"></td>
+
+<td th:text="${teacher.subject}"></td>
+
+<td th:text="${teacher.email}"></td>
+
+<td>
+
+<a th:href="@{/adi/edit-teacher/{id}(id=${teacher.id})}">
+<button class="edit">Edit</button>
+</a>
+
+<a th:href="@{/adi/delete-teacher/{id}(id=${teacher.id})}"
+onclick="return confirm('Are you sure you want to delete this teacher?')">
+<button class="delete">Delete</button>
+</a>
+
+</td>
+
+</tr>
+
+</table>
+
+<br><br>
+
+<a href="/adi/teacher">
+<button>Add New Teacher</button>
+</a>
+
+</body>
+
+</html>

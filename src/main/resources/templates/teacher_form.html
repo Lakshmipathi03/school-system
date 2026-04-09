@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Teacher</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #c3cfe2, #f5f7fa);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 420px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #6a11cb;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.4);
+            outline: none;
+        }
+
+        button {
+            background-color: #6a11cb;
+            color: #fff;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #5b0fa8;
+        }
+
+        a {
+            text-decoration: none;
+            color: #6a11cb;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #4e0c88;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 30px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Teacher</h2>
+
+        <form th:action="@{/adi/teacher}" method="post" th:object="${teacher}">
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" required>
+
+            <label>Subject:</label>
+            <input type="text" th:field="*{subject}" required>
+
+            <label>Email:</label>
+            <input type="email" th:field="*{email}" required>
+
+            <label>Password:</label>
+            <input type="password" th:field="*{password}" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <a href="/adi/teachers">View All Teachers</a>
+
+        <div class="footer">
+            © 2025 School Management System
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #43cea2, #185a9d);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Form */
+form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="date"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 8px 15px;
+    background: #43cea2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2bbf90;
+}
+
+/* Date */
+h3 {
+    text-align: center;
+    color: #444;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #185a9d;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Hover */
+tr:hover {
+    background: #f2f8ff;
+}
+
+/* Print */
+@media print {
+    body {
+        background: white;
+    }
+
+    form, button {
+        display: none;
+    }
+
+    .container {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📅 Daily Payment Report</h2>
+
+<form action="/adi/fees/daily">
+    <input type="date" name="date">
+    <button type="submit">Search</button>
+</form>
+
+<h3>Date: <span th:text="${selectedDate}"></span></h3>
+
+<table>
+<tr>
+    <th>Name</th>
+    <th>Class</th>
+    <th>Roll No</th>
+    <th>Amount Paid</th>
+    <th>Payment Mode</th>
+</tr>
+
+<tr th:each="f : ${fees}">
+    <td th:text="${f.studentName}"></td>
+    <td th:text="${f.className}"></td>
+    <td th:text="${f.rollNumber}"></td>
+    <td>₹<span th:text="${f.amount}"></span></td>
+    <td th:text="${f.paymentMode}"></td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

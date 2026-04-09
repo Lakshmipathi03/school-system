@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Fee Details</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 850px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #999;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background: green;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: darkgreen;
+        }
+
+        .summary {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📊 Student Fee Details</h2>
+
+    <!-- Student Info -->
+    <p><b>Name:</b> <span th:text="${student.name}"></span></p>
+    <p><b>Class:</b> <span th:text="${student.className}"></span></p>
+    <p><b>Roll No:</b> <span th:text="${student.rollNumber}"></span></p>
+
+    <!-- Summary -->
+    <div class="summary">
+        <p><b>Total Fee:</b> ₹ <span th:text="${totalFee}"></span></p>
+        <p><b>Total Paid:</b> ₹ <span th:text="${paid}"></span></p>
+        <p><b>Balance:</b> ₹ <span th:text="${balance}"></span></p>
+    </div>
+
+    <!-- Fee Records Table -->
+    <h3>🧾 Payment History</h3>
+
+    <table>
+        <tr>
+            <th>Receipt Number</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+        </tr>
+
+        <tr th:each="fee : ${feeList}">
+            <td th:text="${fee.receiptNumber}"></td>
+            <td th:text="${fee.amount}"></td>
+            <td th:text="${fee.paymentDate}"></td>
+            <td th:text="${fee.status}"></td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(feeList)}">
+            <td colspan="4">❌ No payment records found</td>
+        </tr>
+    </table>
+
+    <!-- Pay Button -->
+    <div style="text-align:center;">
+        <a th:href="@{'/adi/fees/pay/' + ${student.rollNumber}}">
+            <button class="btn">💳 Proceed to Pay</button>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

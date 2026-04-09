@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 400px;
+    margin: 60px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0 15px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input:focus, select:focus {
+    border-color: #4facfe;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #007bff;
+}
+
+#upiBox {
+    text-align: center;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+    transition: 0.3s;
+}
+
+img {
+    margin: 10px 0;
+}
+
+.info {
+    background: #eef6ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+</style>
+
+<script>
+function toggleUPI() {
+    let mode = document.getElementById("mode").value;
+    document.getElementById("upiBox").style.display =
+        (mode === "UPI") ? "block" : "none";
+}
+</script>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💳 Payment Page</h2>
+
+<div class="info">
+    Name: <span th:text="${fee.studentName}"></span><br>
+    Class: <span th:text="${fee.className}"></span>
+</div>
+
+<form action="/adi/fees/processPayment" method="post" th:object="${fee}">
+
+    <input type="hidden" th:field="*{studentName}">
+    <input type="hidden" th:field="*{className}">
+    <input type="hidden" th:field="*{rollNumber}">
+
+    <label>Amount</label>
+    <input type="number"
+           th:field="*{amount}"
+           min="10000"
+           th:attr="max=${maxAmount}"
+           required>
+
+    <label>Payment Mode</label>
+    <select id="mode" th:field="*{paymentMode}" onchange="toggleUPI()">
+        <option value="Cash">Cash</option>
+        <option value="UPI">UPI</option>
+    </select>
+
+    <!-- UPI Section -->
+    <div id="upiBox">
+        <h3>📱 Scan QR</h3>
+        <img src="/images/qr.png" width="150"><br>
+
+        <label>Transaction ID</label>
+        <input type="text" th:field="*{transactionId}">
+    </div>
+
+    <button type="submit">💰 Pay Now</button>
+
+</form>
+
+</div>
+</body>
+</html>

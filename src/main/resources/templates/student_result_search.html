@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Result</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 500px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #ff9a9e;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #ff9a9e;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 15px;
+            color: #333;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .back-btn {
+            margin-top: 25px;
+        }
+
+        .back-btn a {
+            text-decoration: none;
+            background-color: #ff9a9e;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn a:hover {
+            background-color: #f97b8b;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 30px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+        }
+        .edit {
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-right: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.edit:hover {
+    background-color: #45a049;
+}
+
+.delete {
+    text-decoration: none;
+    background-color: #e74c3c;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.delete:hover {
+    background-color: #c0392b;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Student Details</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Roll Number</th>
+            <th>Class</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.rollNumber}"></td>
+            <td th:text="${student.className}"></td>
+            <td>
+            <a th:href="@{'/adi/edit/' + ${student.id}}" class="edit">Edit</a>
+            <a th:href="@{'/adi/delete/' + ${student.id}}"
+               onclick="return confirm('Are you sure you want to delete?')"
+               class="delete">Delete</a>
+        </td>
+        </tr>
+    </table>
+
+    <div class="back-btn">
+        <a href="/adi/searchByRoll">🔙 Back</a>
+        <a href="/adi/home"> Back to Home Page </a>
+    </div>
+</div>
+
+</body>
+</html>

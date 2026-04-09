@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fee History</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+        .container {
+            width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid gray;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>📄 Fee History</h2>
+
+    <p><b>Name:</b> <span th:text="${student.name}"></span></p>
+    <p><b>Class:</b> <span th:text="${student.className}"></span></p>
+    <p><b>Roll No:</b> <span th:text="${student.rollNumber}"></span></p>
+
+    <hr>
+
+    <h3>💰 Summary</h3>
+    <p>Total Fee: ₹ <span th:text="${totalFee}"></span></p>
+    <p>Paid: ₹ <span th:text="${paid}"></span></p>
+    <p>Balance: ₹ <span th:text="${balance}"></span></p>
+
+    <hr>
+
+    <h3>🧾 Payment Records</h3>
+
+    <table>
+        <tr>
+            <th>Receipt No</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+        </tr>
+
+        <tr th:each="f : ${feeList}">
+            <td th:text="${f.receiptNumber}"></td>
+            <td th:text="${f.amount}"></td>
+            <td th:text="${f.paymentDate}"></td>
+            <td th:text="${f.status}"></td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(feeList)}">
+            <td colspan="4">No payments done yet</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <!-- 💳 Pay Button -->
+    <a th:href="@{'/adi/fees/pay/' + ${student.rollNumber}}">
+        <button>Proceed to Pay</button>
+    </a>
+
+</div>
+
+</body>
+</html>

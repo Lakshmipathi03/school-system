@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Student</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 26px;
+            border-bottom: 3px solid #74ebd5;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label {
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #74ebd5;
+            box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
+            outline: none;
+        }
+        button {
+            background-color: #74ebd5;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #5ec2b8;
+        }
+        .footer {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Student</h2>
+
+        <form th:action="@{/adi/student}" method="post" th:object="${student}">
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" required>
+
+            <label>Class Name:</label>
+            <select th:field="*{className}" required>
+                <option value="">-- Select Class --</option>
+                <option value="5th">5</option>
+                <option value="6th">6</option>
+                <option value="7th">7</option>
+                <option value="8th">8</option>
+                <option value="9th">9</option>
+                <option value="10th">10</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="footer">
+            © 2025 School Management System
+        </div>
+    </div>
+</body>
+</html>

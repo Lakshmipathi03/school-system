@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+/* Receipt Box */
+.receipt-container {
+    width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Watermark */
+.receipt-container::before {
+    content: "Mother Theresa English Medium School";
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 30px;
+    color: rgba(0,0,0,0.05);
+}
+
+/* ✅ HEADER (FIXED) */
+.school-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;   /* prevent line break */
+}
+
+/* ✅ LOGO BIGGER */
+.school-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    padding: 5px;
+}
+
+/* TEXT */
+.school-text h1 {
+    margin: 0;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.school-text p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+/* Title */
+h2 {
+    text-align: center;
+}
+
+/* Row Layout */
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.row div {
+    width: 48%;
+}
+
+/* Summary */
+.summary {
+    margin-top: 15px;
+    padding: 15px;
+    background: #eef6ff;
+    border-radius: 8px;
+}
+
+.paid { color: green; font-weight: bold; }
+.balance { color: red; font-weight: bold; }
+
+/* Signature */
+.signature-section {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signature {
+    text-align: center;
+    width: 45%;
+}
+
+/* Button */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* PRINT */
+@media print {
+    body { background: white; }
+    button { display: none; }
+
+    .receipt-container {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="receipt-container">
+
+    <!-- HEADER -->
+    <div class="school-header">
+        <img th:src="@{/images/school-logo1.png}" class="school-logo">
+
+        <div class="school-text">
+            <h1>Mother Theresa English Medium School</h1>
+            <p>123 Main Road, Bangalore - 560001</p>
+            <p>Phone: +91 9876543210 | Email: mothertheresamtc@school.com</p>
+        </div>
+    </div>
+
+    <h2>🧾 PAYMENT RECEIPT</h2>
+
+    <!-- Student Info -->
+    <div class="row">
+        <div><strong>Name:</strong> <span th:text="${fee.studentName}"></span></div>
+        <div><strong>Class:</strong> <span th:text="${fee.className}"></span></div>
+    </div>
+    <div style="display:flex; justify-content: space-between; margin-bottom:10px;">
+    
+    <div>
+        <p><strong>Receipt No:</strong> 
+            <span th:text="${fee.receiptNumber}"></span>
+        </p>
+    </div>
+
+    <div>
+        <p><strong>Date:</strong> 
+            <span th:text="${fee.receiptDate}"></span>
+        </p>
+    </div>
+
+</div>
+
+    <div class="row">
+        <div><strong>Roll No:</strong> <span th:text="${fee.rollNumber}"></span></div>
+        <div><strong>Mode:</strong> <span th:text="${fee.paymentMode}"></span></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+        <p>Total Fee: ₹<span th:text="${totalFee}"></span></p>
+        <p class="paid">Paid: ₹<span th:text="${paid}"></span></p>
+        <p class="balance">Balance: ₹<span th:text="${balance}"></span></p>
+    </div>
+
+    <!-- Payment Info -->
+    <div class="row">
+        <div><strong>Last Payment:</strong> ₹<span th:text="${fee.amount}"></span></div>
+        <div><strong>Status:</strong> <span th:text="${fee.status}"></span></div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature-section">
+        <div class="signature">
+            <p>______________________</p>
+            <p>Student Signature</p>
+        </div>
+
+        <div class="signature">
+            <p>______________________</p>
+            <p>Principal Signature</p>
+        </div>
+    </div>
+
+    <button onclick="window.print()">🖨 Print</button>
+
+</div>
+
+</body>
+</html>

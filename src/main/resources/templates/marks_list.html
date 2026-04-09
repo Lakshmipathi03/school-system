@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Students Marks</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg,#74ebd5,#ACB6E5);
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #66a6ff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            font-weight: bold;
+            color: green;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #66a6ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>All Students Marks List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Roll No</th>
+            <th>Class</th>
+            <th>English</th>
+            <th>Sanskrit</th>
+            <th>Maths</th>
+            <th>Science</th>
+            <th>Chemistry</th>
+            <th>Social</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="mark : ${marksList}">
+            <td th:text="${mark.student.name}"></td>
+            <td th:text="${mark.student.rollNumber}"></td>
+            <td th:text="${mark.student.className}"></td>
+            <td th:text="${mark.english}"></td>
+            <td th:text="${mark.sanskrit}"></td>
+            <td th:text="${mark.mathas}"></td>
+            <td th:text="${mark.science}"></td>
+            <td th:text="${mark.chemistry}"></td>
+            <td th:text="${mark.social}"></td>
+            <td th:text="${mark.totalMarks}" class="total"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<a href="/marks/select-class" class="back-btn">Back</a>
+
+</body>
+</html>

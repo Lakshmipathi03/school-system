@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Student Result</title>
+</head>
+
+<body>
+
+<h2>Student Result</h2>
+
+<p>
+Name :
+<span th:text="${marks.student.name}"></span>
+</p>
+
+<p>
+Class :
+<span th:text="${marks.student.className}"></span>
+</p>
+
+<hr>
+
+<table border="1">
+
+<tr>
+<th>Subject</th>
+<th>Marks</th>
+</tr>
+
+<tr><td>English</td><td th:text="${marks.english}"></td></tr>
+<tr><td>Maths</td><td th:text="${marks.mathas}"></td></tr>
+<tr><td>Science</td><td th:text="${marks.science}"></td></tr>
+<tr><td>Chemistry</td><td th:text="${marks.chemistry}"></td></tr>
+<tr><td>Social</td><td th:text="${marks.social}"></td></tr>
+<tr><td>Sanskrit</td><td th:text="${marks.sanskrit}"></td></tr>
+
+</table>
+
+<br>
+
+<h3>Total : <span th:text="${total}"></span></h3>
+
+<h3>Average : <span th:text="${average}"></span></h3>
+
+<h3>Grade : <span th:text="${grade}"></span></h3>
+<a th:href="@{/results/pdf/{id}(id=${marks.id})}">
+Download PDF
+</a>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Attendance Report</title>
+
+<style>
+body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(120deg,#74ebd5,#ACB6E5);
+    margin:0;
+    padding:0;
+}
+
+/* Main title */
+h2{
+    text-align:center;
+    color:#333;
+    margin-top:30px;
+}
+
+/* Subtitle */
+h3{
+    margin-top:30px;
+    color:#444;
+    text-align:center;
+}
+
+/* Forms */
+form{
+    margin-top:15px;
+    text-align:center;
+}
+
+/* Select and date input */
+select,input[type="date"]{
+    padding:8px;
+    border-radius:5px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+/* Buttons */
+button{
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    background:#007BFF;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+/* Table */
+table{
+    width:80%;
+    margin:30px auto;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Table header */
+th{
+    background:#007BFF;
+    color:white;
+    padding:12px;
+}
+
+/* Table cells */
+td{
+    padding:10px;
+    text-align:center;
+}
+
+/* Alternate rows */
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+/* Hover effect */
+tr:hover{
+    background:#e6f2ff;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Attendance Report</h2>
+
+<form action="/adi/attendance/report" method="get">
+
+<select name="className">
+<option value="5th">5th</option>
+<option value="6th">6th</option>
+<option value="7th">7th</option>
+<option value="8th">8th</option>
+<option value="9th">9th</option>
+<option value="10th">10th</option>
+</select>
+
+<button type="submit">Generate Report</button>
+
+</form>
+
+<h3>Filter by Date</h3>
+
+<form action="/adi/attendance/date" method="get">
+
+<input type="date" name="date" required>
+
+<button type="submit">Search</button>
+
+</form>
+
+<div style="text-align:center; margin-top:15px;">
+<a href="/adi/attendance/pdf">
+<button>Download PDF</button>
+</a>
+</div>
+
+<br>
+
+<table border="1">
+
+<tr>
+<th>Student Name</th>
+<th>Class</th>
+<th>Status</th>
+<th>Date</th>
+</tr>
+
+<tr th:each="attendance : ${attendances}">
+<td th:text="${attendance.student.name}"></td>
+<td th:text="${attendance.student.className}"></td>
+<td th:text="${attendance.status}"></td>
+<td th:text="${attendance.date}"></td>
+</tr>
+
+</table>
+
+</body>
+</html>

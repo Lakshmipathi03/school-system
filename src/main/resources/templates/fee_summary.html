@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #4facfe;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Hover Effect */
+tr:hover {
+    background: #f1f7ff;
+}
+
+/* Status Colors */
+.paid {
+    color: green;
+    font-weight: bold;
+}
+
+.pending {
+    color: red;
+    font-weight: bold;
+}
+
+/* Button */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #007bff;
+}
+
+/* Print Style */
+@media print {
+    body {
+        background: white;
+    }
+
+    button {
+        display: none;
+    }
+
+    .container {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📊 Fee Summary</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Roll No</th>
+        <th>Total Fee</th>
+        <th>Paid</th>
+        <th>Remaining</th>
+        <th>Status</th>
+    </tr>
+
+    <tr th:each="s : ${summaryList}">
+        <td th:text="${s.name}"></td>
+        <td th:text="${s.className}"></td>
+        <td th:text="${s.rollNumber}"></td>
+        <td th:text="${s.totalFee}"></td>
+        <td th:text="${s.paid}"></td>
+        <td th:text="${s.balance}"></td>
+
+        <td th:class="${s.status == 'Paid'} ? 'paid' : 'pending'"
+            th:text="${s.status}">
+        </td>
+    </tr>
+</table>
+
+<button onclick="window.print()">🖨 Print</button>
+
+</div>
+
+</body>
+</html>

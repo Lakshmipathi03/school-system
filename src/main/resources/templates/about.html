@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mother Theresa English Medium School</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        color: #333;
+        overflow-x: hidden;
+    }
+
+    /* 🎥 FULLSCREEN VIDEO */
+    #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    /* 🌑 DARK OVERLAY */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: -1;
+    }
+
+    /* 🟢 HEADER */
+    .header-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        color: white;
+        background: linear-gradient(45deg, #1976D2, #0D47A1);
+        box-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .title-box h1 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .title-box p {
+        margin: 4px 0;
+        font-size: 15px;
+        color: #e3f2fd;
+    }
+
+    /* 🔵 NAVBAR */
+    nav {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(6px);
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    nav ul li a {
+        color: white;
+        padding: 10px 18px;
+        text-decoration: none;
+        border-radius: 20px;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    nav ul li a:hover {
+        background: #4CAF50;
+        transform: scale(1.1);
+    }
+
+    /* 📢 MARQUEE */
+    .admission-marquee {
+        background: linear-gradient(45deg, #4CAF50, #2e7d32);
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 12px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 3px black;
+    }
+
+    .seat-marquee {
+        background: linear-gradient(45deg, #2196F3, #0D47A1);
+        color: white;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: bold;
+        padding: 10px;
+        letter-spacing: 1px;
+        border-top: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+    }
+
+    /* 📦 SECTIONS */
+    section {
+        display: none;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    section h2 {
+        color: #2e7d32;
+    }
+
+    section ul li {
+        margin: 8px 0;
+    }
+
+    /* ✨ ANIMATION */
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* 🔻 FOOTER */
+    footer {
+        text-align: center;
+        padding: 15px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🎥 VIDEO -->
+<video autoplay muted loop id="bg-video">
+    <source src="videos/school-video.mp4" type="video/mp4">
+</video>
+
+<!-- 🟢 HEADER -->
+<header class="header-container">
+    <div class="title-box">
+        <h1>Mother Theresa English Medium School</h1>
+        <p>📍 123 Main Road, Bangalore - 560001</p>
+        <p>📞 +91 9876543210 | 📧 mothertheresamtc@school.com</p>
+        <p>"Empowering Minds, Building Future Leaders"</p>
+    </div>
+</header>
+
+<!-- 🔵 NAVIGATION -->
+<nav>
+    <ul>
+        <li><a href="#" onclick="showSection('about')">About</a></li>
+        <li><a href="#" onclick="showSection('departments')">Departments</a></li>
+        <li><a href="#" onclick="showSection('staff')">Staff</a></li>
+        <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+    </ul>
+</nav>
+
+<!-- 📢 ANNOUNCEMENTS -->
+<marquee class="admission-marquee">📢 Contact for Admissions 2026</marquee>
+
+<marquee class="seat-marquee" direction="right" scrollamount="6">
+    ⚠️ Limited seats available – Hurry up!
+</marquee>
+
+<!-- 📘 ABOUT -->
+<section id="about">
+    <h2>📘 About Us</h2>
+    <p>
+        Welcome to <b>Mother Theresa English Medium School</b>, where excellence meets education.
+        We focus on academic brilliance, character building, and innovation.
+        Our mission is to create confident, responsible, and successful individuals.
+    </p>
+</section>
+
+<!-- 🏫 DEPARTMENTS -->
+<section id="departments">
+    <h2>🏫 Departments</h2>
+    <ul>
+        <li>🔬 Science</li>
+        <li>📐 Mathematics</li>
+        <li>💻 Computer Science</li>
+        <li>📖 Languages</li>
+        <li>🎨 Arts & Music</li>
+        <li>⚽ Sports</li>
+    </ul>
+</section>
+
+<!-- 👩‍🏫 STAFF -->
+<section id="staff">
+    <h2>👩‍🏫 Our Staff</h2>
+    <ul>
+        <li>Principal: John Doe</li>
+        <li>Vice Principal: Jane Smith</li>
+        <li>Senior Faculty: Experienced & Dedicated Teachers</li>
+    </ul>
+    <p>
+        Our school faculty consists of experienced and dedicated educators led by the Principal and Vice Principal. 
+        The teaching staff is committed to providing quality education, guiding students, and helping them grow academically and personally.
+    </p>
+</section>
+
+<!-- 📞 CONTACT -->
+<section id="contact">
+    <h2>📞 Contact Us</h2>
+    <p>📱 Phone: +91 9876543210</p>
+    <p>📧 Email: mothertheresamtc@school.com</p>
+    <p>📍 Address: 123 Main Road, Bangalore - 560001</p>
+</section>
+
+<!-- 🔻 FOOTER -->
+<footer>
+    <p>© 2026 Mother Theresa English Medium School | All Rights Reserved</p>
+</footer>
+
+<script>
+    function showSection(id) {
+        document.querySelectorAll("section").forEach(sec => {
+            sec.style.display = "none";
+        });
+        document.getElementById(id).style.display = "block";
+    }
+
+    // Default section
+    showSection('about');
+</script>
+
+</body>
+</html>

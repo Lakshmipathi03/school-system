@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Attendance</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .table-container {
+            width: 90%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #6a11cb;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        button {
+            padding: 8px 14px;
+            background: #ff7e5f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #eb5e3f;
+        }
+
+        .class-name {
+            color: #6a11cb;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<h2>
+    📋 Edit Attendance for Class 
+    <span class="class-name" th:text="${className}"></span>
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+    <th>Student Name</th>
+    <th>Class</th>
+    <th>Status</th>
+    <th>Date</th>
+    <th>Action</th>
+</tr>
+
+<tr th:each="att : ${attendances}">
+    <td th:text="${att.student.name}"></td>
+    <td th:text="${att.student.className}"></td>
+    <td th:text="${att.status}"></td>
+    <td th:text="${att.date}"></td>
+
+    <td>
+        <a th:href="@{/adi/attendance/edit/{id}(id=${att.id})}">
+            <button>✏️ Edit</button>
+        </a>
+    </td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

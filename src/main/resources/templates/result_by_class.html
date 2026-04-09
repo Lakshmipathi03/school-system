@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Result By Class</title>
+
+    <style>
+        body { font-family: Arial; text-align: center; }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Select Class</h2>
+
+<form action="/result" method="get">
+    <select name="className" required>
+        <option value="">--Select Class--</option>
+        <option value="5th">Class 5</option>
+        <option value="6th">Class 6</option>
+        <option value="7th">Class 7</option>
+        <option value="8th">Class 8</option>
+        <option value="9th">Class 9</option>
+        <option value="10th">Class 10</option>
+    </select>
+    <button type="submit">View Result</button>
+</form>
+
+<br><br>
+
+<div th:if="${marksList != null}">
+    <h2 th:text="'Result - ' + ${className}"></h2>
+
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>English</th>
+            <th>Sanskrit</th>
+            <th>Maths</th>
+            <th>Science</th>
+            <th>Chemistry</th>
+            <th>Social</th>
+            <th>Total</th>
+            <th>Result</th>
+            <th>Grade</th>
+            <th>Topper</th>
+        </tr>
+
+        <tr th:each="m : ${marksList}">
+            <td th:text="${m.student.name}"></td>
+            <td th:text="${m.english}"></td>
+            <td th:text="${m.sanskrit}"></td>
+            <td th:text="${m.mathas}"></td>
+            <td th:text="${m.science}"></td>
+            <td th:text="${m.chemistry}"></td>
+            <td th:text="${m.social}"></td>
+            <td th:text="${m.totalMarks}"></td>
+
+            <td th:text="${m.result}"
+                th:classappend="${m.result == 'PASS'} ? 'pass' : 'fail'">
+            </td>
+            <td th:text="${m.grade}"></td>
+
+<td>
+    <span th:if="${m.topper}" style="color: gold; font-weight: bold;">
+        🏆 Topper
+    </span>
+</td>
+        </tr>
+    </table>
+</div>
+<div><a href="/adi/home"> Back to Home Page </a></div>
+
+</body>
+</html>

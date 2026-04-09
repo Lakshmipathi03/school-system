@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>School Management Home</title>
+    <style>
+        body {
+    font-family: "Segoe UI", sans-serif;
+    background-image: url('/images/school-img-2.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #333;
+    animation: fadeIn 1s ease-in-out;
+}
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #h1 {
+            background: rgba(77, 159, 188, 0.9);
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* ===== NAVIGATION ===== */
+nav {
+    margin-top: 40px;
+    position: relative;
+    z-index: 5;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    position: relative;
+    display: inline-block;
+    margin: 10px 15px;
+}
+
+/* Main Menu Links */
+nav ul li > a {
+    text-decoration: none;
+    background: rgba(109, 213, 237, 0.9);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    display: inline-block;
+}
+
+nav ul li > a:hover {
+    background: rgba(33, 147, 176, 0.95);
+    transform: scale(1.05);
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: rgba(109, 213, 237, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    padding: 5px 0;
+    animation: fadeDropdown 0.3s ease-in-out;
+    z-index: 10;
+}
+
+/* Dropdown Links */
+.dropdown-content li {
+    display: block;
+    margin: 0;
+}
+
+.dropdown-content li a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 0;
+}
+
+.dropdown-content li a:hover {
+    background: rgba(33, 147, 176, 0.95);
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Smooth animation */
+@keyframes fadeDropdown {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+    </style>
+</head>
+<body>
+
+    <h1 id="h1">🏫 Welcome to Our School Management System</h1>
+
+    <nav>
+        <ul>
+             <!-- ✅ STUDENT DROPDOWN -->
+        <li class="dropdown">
+            <a href="#">🎓 Student ▾</a>
+            <ul class="dropdown-content">
+                <li><a href="/adi/student">➕ Add Student</a></li>
+                <li><a href="/adi/students">📋 View Students</a></li>
+                <li><a href="/adi/selectClass">✏ Edit / Delete</a></li>
+                <li><a href="/adi/searchByRoll">🔎 Search</a></li>
+                <li><a href="/adi/totalStudents"> total students</a></li>
+                
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">🎓 Teacher ▾</a>
+            <ul class="dropdown-content">
+                <li><a href="/adi/teacher">👩‍🏫 Add Teacher</a></li>
+                <li><a href="/adi/teachers">📚 View Teachers</a></li>
+                <li><a href="/adi/teachers">✏ Edit </a></li>
+                 <li><a href="/adi/teachers">✏ Delete </a></li>
+                <li><a href="/adi/teachers">🔎 Search</a></li>
+                
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">🗓️ Attendance ▾</a>
+            <ul class="dropdown-content">
+                <li><a href="/adi/attendance/select-class-2">🗓️ Attendance</a></li>
+                <li><a href="/adi/attendances">📚 View Attendance</a></li>
+                <li><a href="/adi/attendance/report"> Report</a></li>
+                <li><a href="/adi/attendance/select-class">✏ Edit </a></li>
+                
+            </ul>
+        </li>
+            <li class="dropdown">
+            <a href="#">🗓️ Marks ▾</a>
+            <ul class="dropdown-content">
+                <li><a href="/marks/select-class">🗓️ Add Marks</a></li>
+                <li><a href="/marks/list">📋 View Marks</a></li>
+                <li><a href="/marks/view-class-marks">View class Marks</a></li>
+                <li><a href="/marks/view-by-class"> Edit Marks</a></li>
+                
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#">🗓️ Results ▾</a>
+            <ul class="dropdown-content">
+                <li><a href="/result">🗓️ Class Result</a></li>               
+            </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#"> Fee's ▾</a> 
+            <ul class="dropdown-content">
+            <li><a href="/adi/fees/search"> add fee's</a></li>
+            <li><a href="/adi/fees/summary">Pending Fees</a></li>
+            <li><a href="/adi/fees/daily">Total</a></li>
+            </ul>        
+            <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
+        </ul>
+    </nav>
+
+    <h2 id="h2">📘 Learn. Educate. Grow.</h2>
+<footer>
+    © 2025 XYZ School — All Rights Reserved
+</footer>
+    <script>
+    alert("Welcome to XYZ School, where learning meets excellence!");
+
+    function confirmLogout() {
+        let result = confirm("Are you sure you want to logout?");
+        if (result) {
+            window.location.href = "/logout";
+        }
+    }
+    </script>
+</body>
+</html>

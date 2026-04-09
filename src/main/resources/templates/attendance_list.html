@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance Records</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: green;
+            font-weight: 500;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        th {
+            background: #66a6ff;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e8f8f5;
+            transition: 0.3s;
+        }
+
+        td {
+            color: #333;
+            font-size: 15px;
+        }
+
+        .btn-back {
+            background: #66a6ff;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: #4d8aff;
+        }
+
+        footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📄 All Attendance Records</h2>
+
+    <p th:text="${message}"></p>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="att : ${attendances}">
+            <td th:text="${att.date}"></td>
+            <td th:text="${att.student.name}"></td>
+            <td th:text="${att.student.className}"></td>
+            <td>
+                <span th:text="${att.status}"
+                      th:classappend="${att.status == 'Present'} ? 'present' : 'absent'"></span>
+            </td>
+        </tr>
+    </table>
+
+    <a href="/adi/attendance/select-class" class="btn-back">🔙 Back to Class Selection</a>
+    <a href="/adi/home" class="btn-back"> Back to Home Page </a>
+    <a href="/adi/attendance/pdf" class="btn-back">📥 Download PDF</a>
+
+    <footer>© 2025 School Attendance System</footer>
+</div>
+
+</body>
+</html>

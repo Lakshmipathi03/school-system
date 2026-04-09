@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Student</title>
+</head>
+<body>
+
+<h2>Edit Student</h2>
+
+<form th:action="@{'/adi/update/' + ${student.id}}" method="post">
+
+    Name:
+    <input type="text" name="name" th:value="${student.name}" required><br><br>
+
+    Class:
+    <select name="className" required>
+        <option value="5th" th:selected="${student.className == '5th'}">5</option>
+        <option value="6th" th:selected="${student.className == '6th'}">6</option>
+        <option value="7th" th:selected="${student.className == '7th'}">7</option>
+        <option value="8th" th:selected="${student.className == '8th'}">8</option>
+        <option value="9th" th:selected="${student.className == '9th'}">9</option>
+        <option value="10th" th:selected="${student.className == '10th'}">10</option>
+    </select><br><br>
+
+    <button type="submit">Update</button>
+
+</form>
+
+</body>
+</html>
