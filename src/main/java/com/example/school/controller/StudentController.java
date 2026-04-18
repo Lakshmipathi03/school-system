@@ -1,12 +1,17 @@
 package com.example.school.controller;
 
 import com.example.school.model.Student;
+import com.example.school.repository.MarksRepository;
 import com.example.school.repository.StudentRepository;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
 
 @Controller
 @RequestMapping("/adi")
@@ -24,22 +29,37 @@ public class StudentController {
 
     // 🟢 Handle Form Submission
     @PostMapping("/student")
-    public String saveStudent(@ModelAttribute Student student, Model model) {
+    public String saveStudent(@Valid @ModelAttribute Student student,
+                              BindingResult result,
+                              Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("student", student);
+            return "student_form";
+        }
+
+        if (studentRepository.existsByStudentAadhar(student.getStudentAadhar())) {
+            model.addAttribute("error", "❌ Aadhar already registered!");
+            model.addAttribute("student", student);
+            return "student_form";
+        }
+
         Integer maxRoll = studentRepository.findMaxRollNumber();
 
-        if (maxRoll == null) {
-            maxRoll = 2723100; // Start from 2723101
+        // ✅ FIXED LOGIC
+        if (maxRoll == null || maxRoll < 2723100) {
+            maxRoll = 2723100;
         }
 
         student.setRollNumber(maxRoll + 1);
+
         studentRepository.save(student);
 
         model.addAttribute("message", "✅ Student added successfully!");
         model.addAttribute("students", studentRepository.findAll());
-        return "student_list";
-    }
 
-    // 🟢 View All Students
+        return "student_list";
+    }    // 🟢 View All Students
     @GetMapping("/students")
     public String viewAllStudents(Model model) {
         model.addAttribute("students", studentRepository.findAll());
@@ -77,7 +97,15 @@ public class StudentController {
 
         if (existingStudent != null) {
             existingStudent.setName(student.getName());
+            existingStudent.setFullName(student.getFullName());
+            existingStudent.setFatherName(student.getFatherName());
+            existingStudent.setMotherName(student.getMotherName());
+            existingStudent.setMobileNumber(student.getMobileNumber());
+            existingStudent.setEmail(student.getEmail());
+            existingStudent.setAddress(student.getAddress());
+            existingStudent.setFatherAadhar(student.getFatherAadhar());
             existingStudent.setClassName(student.getClassName());
+
             studentRepository.save(existingStudent);
         }
 
@@ -86,8 +114,11 @@ public class StudentController {
 
 
     // 🔴 Delete Student
+    @Autowired
+    private MarksRepository marksRepository;
+
     @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable Long id) {
+    public String deleteStudent(@PathVariable @NonNull Long id) {
 
         Student student = studentRepository.findById(id).orElse(null);
 
@@ -96,6 +127,8 @@ public class StudentController {
         }
 
         String className = student.getClassName();
+
+        // ✅ ONLY DELETE STUDENT (others auto delete)
         studentRepository.delete(student);
 
         return "redirect:/adi/studentsByClass?className=" + className;

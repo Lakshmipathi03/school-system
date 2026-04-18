@@ -6,62 +6,115 @@
 
 <style>
 
-body{
-font-family: Arial;
-background:#f4f6f9;
-text-align:center;
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg,#74ebd5,#ACB6E5);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
 }
 
-h2{
-color:#333;
+h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
 }
 
-table{
-width:80%;
-margin:auto;
-border-collapse:collapse;
-background:white;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+/* Container look */
+.search-box {
+    margin: 15px auto;
+    background: #fff;
+    padding: 15px;
+    width: 60%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-th,td{
-padding:12px;
-border:1px solid #ddd;
+/* Inputs */
+input, select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
 }
 
-th{
-background:#2193b0;
-color:white;
+input:focus, select:focus {
+    border-color: #66a6ff;
+    box-shadow: 0 0 8px rgba(102,166,255,0.4);
 }
 
-tr:nth-child(even){
-background:#f2f2f2;
+/* Buttons */
+button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button{
-padding:6px 12px;
-border:none;
-border-radius:5px;
-cursor:pointer;
+.edit {
+    background: #4CAF50;
+    color: white;
 }
 
-.edit{
-background:#4CAF50;
-color:white;
+.edit:hover {
+    background: #45a049;
 }
 
-.delete{
-background:#e74c3c;
-color:white;
+.delete {
+    background: #e74c3c;
+    color: white;
 }
 
-.search-box{
-margin:20px;
+.delete:hover {
+    background: #c0392b;
 }
 
-select,input{
-padding:6px;
-margin:5px;
+/* Table */
+table {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+th {
+    background: #66a6ff;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tr:hover {
+    background: #e8f8f5;
+}
+
+/* Add button */
+.add-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 18px;
+    background: #66a6ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.add-btn:hover {
+    background: #5ec2b8;
 }
 
 </style>
@@ -72,46 +125,29 @@ margin:5px;
 
 <h2>📚 Teacher List</h2>
 
-<!-- 🔎 SEARCH TEACHER -->
-
+<!-- SEARCH -->
 <div class="search-box">
-
 <form action="/adi/search-teacher" method="get">
-
 <input type="text" name="name" placeholder="Search Teacher Name">
-
 <button type="submit">Search</button>
-
 </form>
-
 </div>
 
-
-<!-- 📚 VIEW BY SUBJECT -->
-
+<!-- FILTER -->
 <div class="search-box">
-
 <form action="/adi/teachers-by-subject" method="get">
-
 <select name="subject">
-
 <option value="">Select Subject</option>
 <option value="Math">Math</option>
 <option value="Science">Science</option>
 <option value="English">English</option>
 <option value="Physics">Physics</option>
-
 </select>
-
 <button type="submit">View</button>
-
 </form>
-
 </div>
 
-
-<br>
-
+<!-- TABLE -->
 <table>
 
 <tr>
@@ -125,15 +161,11 @@ margin:5px;
 <tr th:each="teacher : ${teachers}">
 
 <td th:text="${teacher.id}"></td>
-
 <td th:text="${teacher.name}"></td>
-
 <td th:text="${teacher.subject}"></td>
-
 <td th:text="${teacher.email}"></td>
 
 <td>
-
 <a th:href="@{/adi/edit-teacher/{id}(id=${teacher.id})}">
 <button class="edit">Edit</button>
 </a>
@@ -142,19 +174,13 @@ margin:5px;
 onclick="return confirm('Are you sure you want to delete this teacher?')">
 <button class="delete">Delete</button>
 </a>
-
 </td>
 
 </tr>
 
 </table>
 
-<br><br>
-
-<a href="/adi/teacher">
-<button>Add New Teacher</button>
-</a>
+<a href="/adi/teacher" class="add-btn">➕ Add New Teacher</a>
 
 </body>
-
 </html>

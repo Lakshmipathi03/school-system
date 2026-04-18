@@ -2,31 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Teacher</title>
+
     <style>
         body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #c3cfe2, #f5f7fa);
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg,#74ebd5,#ACB6E5);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
 
         .container {
-            background-color: #ffffff;
+            background: #fff;
             padding: 40px 50px;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             width: 420px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         h2 {
-            color: #333;
-            font-size: 26px;
-            margin-bottom: 25px;
-            border-bottom: 3px solid #6a11cb;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #66a6ff;
             display: inline-block;
             padding-bottom: 5px;
         }
@@ -34,104 +35,99 @@
         form {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            text-align: left;
         }
 
         label {
-            font-weight: bold;
+            font-weight: 600;
+            margin-top: 10px;
             color: #444;
-            margin-bottom: 6px;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
+        input {
             width: 100%;
             padding: 10px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
+            margin-top: 5px;
             border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            border: 1px solid #ccc;
+            transition: 0.3s;
         }
 
         input:focus {
-            border-color: #6a11cb;
-            box-shadow: 0 0 8px rgba(106, 17, 203, 0.4);
+            border-color: #66a6ff;
+            box-shadow: 0 0 8px rgba(102,166,255,0.5);
             outline: none;
         }
 
         button {
-            background-color: #6a11cb;
-            color: #fff;
-            padding: 12px 15px;
+            margin-top: 20px;
+            padding: 12px;
             border: none;
             border-radius: 8px;
+            background: #66a6ff;
+            color: white;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.3s ease;
-            width: 100%;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #5b0fa8;
+            background: #5ec2b8;
+            transform: scale(1.03);
         }
 
         a {
-            text-decoration: none;
-            color: #6a11cb;
-            font-weight: 600;
             display: inline-block;
             margin-top: 15px;
-            transition: color 0.3s;
+            text-decoration: none;
+            color: #66a6ff;
+            font-weight: 600;
         }
 
         a:hover {
-            color: #4e0c88;
+            color: #5ec2b8;
         }
 
         .footer {
             margin-top: 15px;
             font-size: 13px;
-            color: #666;
+            color: #777;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-                padding: 30px;
-            }
-            h2 {
-                font-size: 22px;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h2>Add New Teacher</h2>
 
-        <form th:action="@{/adi/teacher}" method="post" th:object="${teacher}">
-            <label>Name:</label>
-            <input type="text" th:field="*{name}" required>
+<div class="container">
+    <h2>Add New Teacher</h2>
 
-            <label>Subject:</label>
-            <input type="text" th:field="*{subject}" required>
+    <form th:action="@{/adi/teacher}" method="post" th:object="${teacher}">
+        <label>Name</label>
+        <input type="text" th:field="*{name}" required>
 
-            <label>Email:</label>
-            <input type="email" th:field="*{email}" required>
+        <label>Subject</label>
+        <input type="text" th:field="*{subject}" required>
 
-            <label>Password:</label>
-            <input type="password" th:field="*{password}" required>
+        <label>Email</label>
+        <input type="email" th:field="*{email}" required>
 
-            <button type="submit">Submit</button>
-        </form>
+        <label>Password</label>
+        <input type="password" th:field="*{password}" required>
 
-        <a href="/adi/teachers">View All Teachers</a>
+        <button type="submit">Submit</button>
+    </form>
 
-        <div class="footer">
-            © 2025 School Management System
-        </div>
+    <a href="/adi/teachers">View All Teachers</a>
+
+    <div class="footer">
+        © 2025 School Management System
     </div>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Attendance Report</title>
+
+<style>
+body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg,#74ebd5,#ACB6E5);
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+.container{
+    background:#fff;
+    padding:30px 40px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    width:90%;
+    max-width:1000px;
+    text-align:center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.school-name{
+    font-size:22px;
+    font-weight:bold;
+    color:#333;
+    margin-bottom:5px;
+}
+
+h2{
+    color:#333;
+    margin-bottom:20px;
+    border-bottom:3px solid #74ebd5;
+    display:inline-block;
+    padding-bottom:5px;
+}
+
+h3{
+    margin-top:25px;
+    color:#444;
+}
+
+form{
+    margin-top:10px;
+}
+
+input, select{
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+    margin:5px;
+}
+
+input:focus, select:focus{
+    border-color:#74ebd5;
+    box-shadow:0 0 6px rgba(116,235,213,0.6);
+    outline:none;
+}
+
+button{
+    padding:8px 15px;
+    border:none;
+    border-radius:6px;
+    background:#74ebd5;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#5ec2b8;
+}
+
+table{
+    width:100%;
+    margin-top:25px;
+    border-collapse:collapse;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th{
+    background:#74ebd5;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:10px;
+    text-align:center;
+    color:#333;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+tr:hover{
+    background:#e8f8f5;
+}
+
+.present{
+    color:green;
+    font-weight:bold;
+}
+
+.absent{
+    color:red;
+    font-weight:bold;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:600px){
+    .container{
+        padding:20px;
+    }
+
+    th,td{
+        font-size:12px;
+        padding:8px;
+    }
+
+    .school-name{
+        font-size:18px;
+    }
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    table, table * {
+        visibility: visible;
+    }
+
+    table {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="school-name">Mother Theresa English Medium School</div>
+    <h3>🔍 Student Attendance Report</h3>
+    <form action="/adi/attendance/student-report" method="get">
+        <input type="text" name="rollNumber" placeholder="Enter Roll Number" required>
+        <input type="date" name="startDate" required>
+        <input type="date" name="endDate" required>
+        <button type="submit">Get Report</button>
+    </form>
+
+    <!-- Error -->
+    <p th:if="${error}" style="color:red;" th:text="${error}"></p>
+
+    <!-- Student Info -->
+
+    <div style="margin-top:10px;">
+    <button onclick="printPage()">🖨️ Print Report</button>
+</div>
+    <!-- Table -->
+    <div>
+    <h3 align="center">Mother Theresa English Medium School</h3>
+    <h3>
+            👤 <span th:text="${studentName}"></span>
+            (Roll No: <span th:text="${rollNumber}"></span>)
+        </h3>
+        </div>
+    <table th:if="${attendances != null and !attendances.isEmpty()}">
+        <tr>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+
+        <tr th:each="attendance : ${attendances}">
+            <td th:text="${attendance.student.name}"></td>
+            <td th:text="${attendance.student.className}"></td>
+            <td>
+                <span th:text="${attendance.status}"
+                      th:classappend="${attendance.status == 'Present'} ? 'present' : 'absent'"></span>
+            </td>
+            <td th:text="${attendance.date}"></td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>
+</html>

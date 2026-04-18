@@ -4,24 +4,94 @@
     <title>Result By Class</title>
 
     <style>
-        body { font-family: Arial; text-align: center; }
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 3px solid #74ebd5;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 15px;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: #74ebd5;
+            box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #74ebd5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #5ec2b8;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            margin: 30px auto;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 1100px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.6s ease-in-out;
+        }
 
         table {
-            margin: auto;
+            width: 100%;
             border-collapse: collapse;
-            width: 90%;
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         th, td {
-            border: 1px solid black;
-            padding: 8px;
+            padding: 10px;
+            text-align: center;
         }
 
         th {
-            background-color: #4CAF50;
+            background: #74ebd5;
             color: white;
+            text-transform: uppercase;
         }
 
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e8f8f5;
+            transition: 0.3s;
+        }
+
+        /* Result colors */
         .pass {
             color: green;
             font-weight: bold;
@@ -30,6 +100,45 @@
         .fail {
             color: red;
             font-weight: bold;
+        }
+
+        /* Buttons */
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #74ebd5;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #5ec2b8;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
         }
     </style>
 </head>
@@ -51,9 +160,8 @@
     <button type="submit">View Result</button>
 </form>
 
-<br><br>
+<div th:if="${marksList != null}" class="container">
 
-<div th:if="${marksList != null}">
     <h2 th:text="'Result - ' + ${className}"></h2>
 
     <table>
@@ -84,17 +192,20 @@
             <td th:text="${m.result}"
                 th:classappend="${m.result == 'PASS'} ? 'pass' : 'fail'">
             </td>
+
             <td th:text="${m.grade}"></td>
 
-<td>
-    <span th:if="${m.topper}" style="color: gold; font-weight: bold;">
-        🏆 Topper
-    </span>
-</td>
+            <td>
+                <span th:if="${m.topper}" style="color: gold; font-weight: bold;">
+                    🏆 Topper
+                </span>
+            </td>
         </tr>
     </table>
+
+    <a href="/adi/home" class="back-btn">🏠 Back to Home Page</a>
+
 </div>
-<div><a href="/adi/home"> Back to Home Page </a></div>
 
 </body>
 </html>

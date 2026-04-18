@@ -2,33 +2,137 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Edit Teacher</title>
+
+<style>
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 35px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* School Name */
+.school-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Title */
+h2 {
+    margin-bottom: 25px;
+    color: #333;
+    border-bottom: 3px solid #74ebd5;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #74ebd5;
+    box-shadow: 0 0 6px rgba(116, 235, 213, 0.6);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #74ebd5; /* MATCHED */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5ec2b8; /* MATCHED */
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .container {
+        width: 90%;
+        padding: 25px;
+    }
+}
+</style>
+
 </head>
 
 <body>
 
-<h2>Edit Teacher</h2>
+<div class="container">
 
-<form th:action="@{/adi/update-teacher/{id}(id=${teacher.id})}" method="post" th:object="${teacher}">
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-Name:
-<input type="text" th:field="*{name}" required>
-<br><br>
+    <!-- Title -->
+    <h2>✏️ Edit Teacher</h2>
 
-Subject:
-<input type="text" th:field="*{subject}" required>
-<br><br>
+    <form th:action="@{/adi/update-teacher/{id}(id=${teacher.id})}" method="post" th:object="${teacher}">
 
-Email:
-<input type="email" th:field="*{email}" required>
-<br><br>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required>
 
-Password:
-<input type="password" th:field="*{password}" required>
-<br><br>
+        <label>Subject:</label>
+        <input type="text" th:field="*{subject}" required>
 
-<button type="submit">Update Teacher</button>
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required>
 
-</form>
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" required>
+
+        <button type="submit">✅ Update Teacher</button>
+
+    </form>
+
+</div>
 
 </body>
 </html>

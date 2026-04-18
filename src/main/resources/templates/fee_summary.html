@@ -4,19 +4,32 @@
 <head>
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #4facfe, #00f2fe);
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Container */
 .container {
     width: 900px;
-    margin: 40px auto;
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    padding: 30px 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* School Name */
+.school-name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
 }
 
 /* Title */
@@ -24,32 +37,39 @@ h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    border-bottom: 3px solid #74ebd5;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
 /* Table */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
 }
 
 th {
-    background: #4facfe;
+    background: #74ebd5; /* MATCHED */
     color: white;
-    padding: 12px;
 }
 
-td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
+tr:nth-child(even) {
+    background: #f9f9f9;
 }
 
-/* Hover Effect */
 tr:hover {
-    background: #f1f7ff;
+    background: #e8f8f5;
 }
 
-/* Status Colors */
+/* Status */
 .paid {
     color: green;
     font-weight: bold;
@@ -64,17 +84,43 @@ tr:hover {
 button {
     display: block;
     margin: 20px auto;
-    padding: 10px 20px;
-    background: #4facfe;
+    padding: 12px 25px;
+    background: #74ebd5;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #007bff;
+    background: #5ec2b8;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
 }
 
 /* Print Style */
@@ -99,34 +145,37 @@ button:hover {
 
 <div class="container">
 
-<h2>📊 Fee Summary</h2>
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Class</th>
-        <th>Roll No</th>
-        <th>Total Fee</th>
-        <th>Paid</th>
-        <th>Remaining</th>
-        <th>Status</th>
-    </tr>
+    <h2>📊 Fee Summary</h2>
 
-    <tr th:each="s : ${summaryList}">
-        <td th:text="${s.name}"></td>
-        <td th:text="${s.className}"></td>
-        <td th:text="${s.rollNumber}"></td>
-        <td th:text="${s.totalFee}"></td>
-        <td th:text="${s.paid}"></td>
-        <td th:text="${s.balance}"></td>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Roll No</th>
+            <th>Total Fee</th>
+            <th>Paid</th>
+            <th>Remaining</th>
+            <th>Status</th>
+        </tr>
 
-        <td th:class="${s.status == 'Paid'} ? 'paid' : 'pending'"
-            th:text="${s.status}">
-        </td>
-    </tr>
-</table>
+        <tr th:each="s : ${summaryList}">
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.className}"></td>
+            <td th:text="${s.rollNumber}"></td>
+            <td>₹ <span th:text="${s.totalFee}"></span></td>
+            <td>₹ <span th:text="${s.paid}"></span></td>
+            <td>₹ <span th:text="${s.balance}"></span></td>
 
-<button onclick="window.print()">🖨 Print</button>
+            <td th:class="${s.status == 'Paid'} ? 'paid' : 'pending'"
+                th:text="${s.status}">
+            </td>
+        </tr>
+    </table>
+
+    <button onclick="window.print()">🖨 Print</button>
 
 </div>
 

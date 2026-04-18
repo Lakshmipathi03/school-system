@@ -4,61 +4,93 @@
 <head>
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #667eea, #764ba2);
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
 .container {
     width: 350px;
-    margin: 100px auto;
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
 }
 
+/* School Name */
+.school-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Title */
 h2 {
     color: #333;
     margin-bottom: 20px;
+    border-bottom: 3px solid #74ebd5;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
+/* Input */
 input {
-    width: 90%;
+    width: 100%;
     padding: 10px;
     margin: 10px 0 20px 0;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 14px;
+    transition: 0.3s;
 }
 
 input:focus {
-    border-color: #667eea;
+    border-color: #74ebd5;
     outline: none;
+    box-shadow: 0 0 6px rgba(116, 235, 213, 0.6);
 }
 
+/* Button */
 button {
-    width: 95%;
-    padding: 10px;
-    background: #667eea;
+    width: 100%;
+    padding: 12px;
+    background: #74ebd5;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
 }
 
 button:hover {
-    background: #5a67d8;
+    background: #5ec2b8;
 }
 
+/* Error */
 .error {
     color: red;
     margin-top: 10px;
     font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 </head>
@@ -67,14 +99,17 @@ button:hover {
 
 <div class="container">
 
-<h2>🔍 Search Student</h2>
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-<form action="/adi/fees/searchResult">
-    <input type="number" name="rollNumber" placeholder="Enter Roll Number" required>
-    <button type="submit">Search</button>
-</form>
+    <h2>🔍 Search Student</h2>
 
-<p th:text="${error}" class="error"></p>
+    <form action="/adi/fees/searchResult">
+        <input type="number" name="rollNumber" placeholder="Enter Roll Number" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <p th:text="${error}" class="error"></p>
 
 </div>
 

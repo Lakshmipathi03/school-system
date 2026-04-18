@@ -4,58 +4,108 @@
 <head>
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #36d1dc, #5b86e5);
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Container */
 .container {
     width: 600px;
-    margin: 80px auto;
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
 }
 
+/* School Name */
+.school-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Title */
 h2 {
     color: #333;
     margin-bottom: 20px;
+    border-bottom: 3px solid #74ebd5;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
 }
 
 th {
-    background: #5b86e5;
+    background: #74ebd5; /* MATCHED */
     color: white;
-    padding: 10px;
 }
 
-td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+tr:nth-child(even) {
+    background: #f9f9f9;
 }
 
 tr:hover {
-    background: #f5f7ff;
+    background: #e8f8f5;
 }
 
+/* Pay Button */
 .pay-btn {
     text-decoration: none;
-    padding: 6px 12px;
-    background: #36d1dc;
+    padding: 8px 15px;
+    background: #74ebd5;
     color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: 0.3s;
+    display: inline-block;
 }
 
 .pay-btn:hover {
-    background: #2bb3c0;
+    background: #5ec2b8;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
 }
 </style>
 </head>
@@ -64,28 +114,34 @@ tr:hover {
 
 <div class="container">
 
-<h2>🎓 Student Details</h2>
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-<table>
-<tr>
-    <th>Name</th>
-    <th>Class</th>
-    <th>Roll Number</th>
-    <th>Action</th>
-</tr>
+    <h2>🎓 Student Details</h2>
 
-<tr>
-    <td th:text="${student.name}"></td>
-    <td th:text="${student.className}"></td>
-    <td th:text="${student.rollNumber}"></td>
-    <td>
-        <a th:href="@{'/adi/fees/pay/' + ${student.rollNumber}}" class="pay-btn">
-            💳 Pay
-        </a>
-    </td>
-</tr>
+    <table>
+        <tr>
+        	<th>Roll Number</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Total Fee</th>
+            <th>Remaining</th>
+            <th>Action</th>
+        </tr>
 
-</table>
+        <tr>
+        	<td th:text="${student.rollNumber}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.className}"></td>
+            <td>₹ <span th:text="${totalFee}"></span></td>
+            <td>₹ <span th:text="${balance}"></span></td>
+            <td>
+                <a th:href="@{'/adi/fees/pay/' + ${student.rollNumber}}" class="pay-btn">
+                    💳 Pay
+                </a>
+            </td>
+        </tr>
+    </table>
 
 </div>
 

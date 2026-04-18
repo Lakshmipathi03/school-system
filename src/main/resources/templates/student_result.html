@@ -2,26 +2,121 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Student Result</title>
+
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg,#74ebd5,#ACB6E5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: #fff;
+        padding: 35px 45px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        width: 550px;
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        border-bottom: 3px solid #66a6ff;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    p {
+        font-size: 16px;
+        color: #333;
+        margin: 8px 0;
+    }
+
+    hr {
+        margin: 15px 0;
+        border: 0;
+        height: 1px;
+        background: #ddd;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th {
+        background: #66a6ff;
+        color: white;
+        padding: 10px;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    tr:hover {
+        background: #e8f8f5;
+    }
+
+    h3 {
+        margin: 10px 0;
+        color: #2c3e50;
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 15px;
+        background: #66a6ff;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    a:hover {
+        background: #5ec2b8;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(-10px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+</style>
+
 </head>
 
 <body>
 
+<div class="container">
+
 <h2>Student Result</h2>
 
 <p>
-Name :
-<span th:text="${marks.student.name}"></span>
+Name : <span th:text="${marks.student.name}"></span>
 </p>
 
 <p>
-Class :
-<span th:text="${marks.student.className}"></span>
+Class : <span th:text="${marks.student.className}"></span>
 </p>
 
 <hr>
 
-<table border="1">
-
+<table>
 <tr>
 <th>Subject</th>
 <th>Marks</th>
@@ -36,16 +131,15 @@ Class :
 
 </table>
 
-<br>
-
 <h3>Total : <span th:text="${total}"></span></h3>
-
 <h3>Average : <span th:text="${average}"></span></h3>
-
 <h3>Grade : <span th:text="${grade}"></span></h3>
+
 <a th:href="@{/results/pdf/{id}(id=${marks.id})}">
 Download PDF
 </a>
+
+</div>
 
 </body>
 </html>

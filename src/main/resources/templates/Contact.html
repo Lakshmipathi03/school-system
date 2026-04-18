@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mother Theresa English Medium School</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+
+    /* ✅ BACKGROUND IMAGE */
+    background: url('/images/school5.jpg') no-repeat center center/cover;
+}
+
+/* 🌑 DARK OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: -1;
+}
+
+/* 🟢 HEADER */
+.header-container {
+    text-align: center;
+    padding: 25px;
+    color: white;
+    background: linear-gradient(45deg, #1976D2, #0D47A1);
+}
+
+.title-box h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.title-box p {
+    margin: 4px 0;
+}
+
+/* 📢 MARQUEE */
+.admission-marquee {
+    background: #4CAF50;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.seat-marquee {
+    background: #2196F3;
+    color: white;
+    font-size: 18px;
+    padding: 8px;
+}
+
+/* 📦 SECTIONS */
+.section {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 12px;
+}
+
+.section h2 {
+    color: #2e7d32;
+}
+
+/* 🖼️ GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* 🔻 FOOTER */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+}
+.faculty {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* 👇 IMAGE STYLE */
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🟢 HEADER -->
+<div class="header-container">
+    <div class="title-box">
+        <h1>Mother Theresa English Medium School</h1>
+        <p>📍 123 Main Road, Bangalore - 560001</p>
+        <p>📞 +91 9876543210 | 📧 mothertheresamtc@school.com</p>
+        <p>"Empowering Minds, Building Future Leaders"</p>
+    </div>
+</div>
+<div class="section">
+    <h2>📞 Contact Details</h2>
+
+    <p>
+        For any queries or information, feel free to contact our school authorities.
+    </p>
+
+    <div class="contact-cards">
+
+        <!-- 👨‍🏫 Principal -->
+        <div class="card">
+            <img src="/images/principal.jpg" alt="Principal">
+            <h3>Mr.Raj Kumar</h3>
+            <p><b>Role:</b> Principal</p>
+            <p>📧 principal@school.com</p>
+            <p>📱 +91 9876543210</p>
+        </div>
+
+        <!-- 👩‍🏫 HOD -->
+        <div class="card">
+            <img src="/images/hod.jpg" alt="HOD">
+            <h3>Mrs.Prakesh Reddy</h3>
+            <p><b>Role:</b> Head of Department</p>
+            <p>📧 hod@school.com</p>
+            <p>📱 +91 9123456780</p>
+        </div>
+
+        <!-- 🧾 Admin -->
+        <div class="card">
+            <img src="/images/admin.jpg" alt="Admin">
+            <h3>Mr. Lalith Kumar</h3>
+            <p><b>Role:</b> Administration Officer</p>
+            <p>📧 admin@school.com</p>
+            <p>📱 +91 9988776655</p>
+        </div>
+
+    </div>
+</div>
+<!-- 🔻 FOOTER -->
+<footer>
+    <p>© 2026 Mother Theresa English Medium School</p>
+</footer>
+
+</body>
+</html>

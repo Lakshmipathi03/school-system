@@ -2,29 +2,142 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Student</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 600px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #74ebd5;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, select {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 12px;
+            background: #74ebd5;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+    </style>
 </head>
+
 <body>
 
-<h2>Edit Student</h2>
+<div class="container">
+    <h2>✏️ Edit Student</h2>
 
-<form th:action="@{'/adi/update/' + ${student.id}}" method="post">
+    <!-- IMPORTANT: th:object -->
+    <form th:action="@{'/adi/update/' + ${student.id}}"
+          method="post"
+          th:object="${student}">
 
-    Name:
-    <input type="text" name="name" th:value="${student.name}" required><br><br>
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" required>
+        </div>
 
-    Class:
-    <select name="className" required>
-        <option value="5th" th:selected="${student.className == '5th'}">5</option>
-        <option value="6th" th:selected="${student.className == '6th'}">6</option>
-        <option value="7th" th:selected="${student.className == '7th'}">7</option>
-        <option value="8th" th:selected="${student.className == '8th'}">8</option>
-        <option value="9th" th:selected="${student.className == '9th'}">9</option>
-        <option value="10th" th:selected="${student.className == '10th'}">10</option>
-    </select><br><br>
+        <div class="form-group">
+            <label>Full Name:</label>
+            <input type="text" th:field="*{fullName}" required>
+        </div>
 
-    <button type="submit">Update</button>
+        <div class="form-group">
+            <label>Father Name:</label>
+            <input type="text" th:field="*{fatherName}" required>
+        </div>
 
-</form>
+        <div class="form-group">
+            <label>Mother Name:</label>
+            <input type="text" th:field="*{motherName}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Mobile Number:</label>
+            <input type="text" th:field="*{mobileNumber}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" th:field="*{email}">
+        </div>
+
+        <div class="form-group full-width">
+            <label>Address:</label>
+            <input type="text" th:field="*{address}">
+        </div>
+
+        <div class="form-group">
+            <label>Student Aadhar:</label>
+            <input type="text" th:field="*{studentAadhar}" readonly>
+            <!-- readonly to prevent duplicate issues -->
+        </div>
+
+        <div class="form-group">
+            <label>Father Aadhar:</label>
+            <input type="text" th:field="*{fatherAadhar}">
+        </div>
+
+        <div class="form-group full-width">
+            <label>Class:</label>
+            <select th:field="*{className}" required>
+                <option value="5th">5</option>
+                <option value="6th">6</option>
+                <option value="7th">7</option>
+                <option value="8th">8</option>
+                <option value="9th">9</option>
+                <option value="10th">10</option>
+            </select>
+        </div>
+
+        <button type="submit">✅ Update Student</button>
+
+    </form>
+</div>
 
 </body>
 </html>

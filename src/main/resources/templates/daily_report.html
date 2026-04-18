@@ -4,66 +4,95 @@
 <head>
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #43cea2, #185a9d);
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Container */
 .container {
-    width: 900px;
-    margin: 40px auto;
+    width: 90%;
+    max-width: 900px;
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* School Name */
+.school-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
 }
 
 /* Title */
 h2 {
-    text-align: center;
     color: #333;
+    border-bottom: 3px solid #74ebd5;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 /* Form */
 form {
-    text-align: center;
     margin-bottom: 20px;
 }
 
 input[type="date"] {
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    margin-right: 10px;
 }
 
+input:focus {
+    border-color: #74ebd5;
+    box-shadow: 0 0 6px rgba(116,235,213,0.6);
+    outline: none;
+}
+
+/* Button */
 button {
     padding: 8px 15px;
-    background: #43cea2;
+    background: #74ebd5; /* MATCHED */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #2bbf90;
+    background: #5ec2b8; /* MATCHED */
 }
 
 /* Date */
 h3 {
-    text-align: center;
     color: #444;
+    margin-bottom: 15px;
 }
 
 /* Table */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th {
-    background: #185a9d;
+    background: #74ebd5; /* MATCHED */
     color: white;
     padding: 12px;
 }
@@ -71,12 +100,43 @@ th {
 td {
     padding: 10px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    color: #333;
 }
 
-/* Hover */
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
 tr:hover {
-    background: #f2f8ff;
+    background: #e8f8f5;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .school-name {
+        font-size: 18px;
+    }
 }
 
 /* Print */
@@ -101,33 +161,36 @@ tr:hover {
 
 <div class="container">
 
-<h2>📅 Daily Payment Report</h2>
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-<form action="/adi/fees/daily">
-    <input type="date" name="date">
-    <button type="submit">Search</button>
-</form>
+    <!-- Title -->
+    <h2>📅 Daily Payment Report</h2>
 
-<h3>Date: <span th:text="${selectedDate}"></span></h3>
+    <form action="/adi/fees/daily">
+        <input type="date" name="date">
+        <button type="submit">Search</button>
+    </form>
 
-<table>
-<tr>
-    <th>Name</th>
-    <th>Class</th>
-    <th>Roll No</th>
-    <th>Amount Paid</th>
-    <th>Payment Mode</th>
-</tr>
+    <h3>Date: <span th:text="${selectedDate}"></span></h3>
 
-<tr th:each="f : ${fees}">
-    <td th:text="${f.studentName}"></td>
-    <td th:text="${f.className}"></td>
-    <td th:text="${f.rollNumber}"></td>
-    <td>₹<span th:text="${f.amount}"></span></td>
-    <td th:text="${f.paymentMode}"></td>
-</tr>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Roll No</th>
+            <th>Amount Paid</th>
+            <th>Payment Mode</th>
+        </tr>
 
-</table>
+        <tr th:each="f : ${fees}">
+            <td th:text="${f.studentName}"></td>
+            <td th:text="${f.className}"></td>
+            <td th:text="${f.rollNumber}"></td>
+            <td>₹<span th:text="${f.amount}"></span></td>
+            <td th:text="${f.paymentMode}"></td>
+        </tr>
+    </table>
 
 </div>
 

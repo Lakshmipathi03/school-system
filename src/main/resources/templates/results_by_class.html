@@ -2,6 +2,132 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Results</title>
+
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h2 {
+        color: #333;
+        border-bottom: 3px solid #74ebd5;
+        display: inline-block;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    select {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        outline: none;
+    }
+
+    select:focus {
+        border-color: #74ebd5;
+        box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
+    }
+
+    button {
+        padding: 10px 15px;
+        background: #74ebd5;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #5ec2b8;
+    }
+
+    .container {
+        background: white;
+        padding: 25px;
+        margin: 30px auto;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 900px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+    }
+
+    th {
+        background: #74ebd5;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #e8f8f5;
+        transition: 0.3s;
+    }
+
+    a {
+        text-decoration: none;
+        background: #74ebd5;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    a:hover {
+        background: #5ec2b8;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        table {
+            font-size: 12px;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+    }
+</style>
+
 </head>
 
 <body>
@@ -10,44 +136,41 @@
 
 <form action="/results/by-class" method="get">
 
-Select Class:
+    <label>Select Class:</label>
 
-<select name="className">
-<option value="Class 6">Class 6</option>
-<option value="Class 7">Class 7</option>
-<option value="Class 8">Class 8</option>
-<option value="Class 9">Class 9</option>
-<option value="Class 10">Class 10</option>
-</select>
+    <select name="className">
+        <option value="Class 6">Class 6</option>
+        <option value="Class 7">Class 7</option>
+        <option value="Class 8">Class 8</option>
+        <option value="Class 9">Class 9</option>
+        <option value="Class 10">Class 10</option>
+    </select>
 
-<button type="submit">View Results</button>
+    <button type="submit">View Results</button>
 
 </form>
 
-<br>
+<div class="container" th:if="${results != null}">
 
-<table border="1" th:if="${results != null}">
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Result</th>
+        </tr>
 
-<tr>
-<th>Student Name</th>
-<th>Class</th>
-<th>Result</th>
-</tr>
+        <tr th:each="r : ${results}">
+            <td th:text="${r.student.name}"></td>
+            <td th:text="${r.student.className}"></td>
+            <td>
+                <a th:href="@{/results/student/{id}(id=${r.id})}">
+                    View Result
+                </a>
+            </td>
+        </tr>
+    </table>
 
-<tr th:each="r : ${results}">
-
-<td th:text="${r.student.name}"></td>
-<td th:text="${r.student.className}"></td>
-
-<td>
-<a th:href="@{/results/student/{id}(id=${r.id})}">
-View Result
-</a>
-</td>
-
-</tr>
-
-</table>
+</div>
 
 </body>
 </html>

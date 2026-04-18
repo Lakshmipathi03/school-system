@@ -100,7 +100,12 @@
     <groupId>org.thymeleaf.extras</groupId>
     <artifactId>thymeleaf-extras-springsecurity6</artifactId>
 </dependency>
-</dependencies>
+    <dependency>
+    	<groupId>com.example</groupId>
+    	<artifactId>admission-app</artifactId>
+    	<version>1.0.0</version>
+    </dependency>
+	</dependencies>
 
 
 	<build>

@@ -43,10 +43,31 @@ public class FeeController {
             return "fee_search";
         }
 
+        // ✅ Calculate total fee
+        double totalFee = 0;
+
+        switch (student.getClassName()) {
+            case "5th": totalFee = 65000; break;
+            case "6th": totalFee = 65000; break;
+            case "7th": totalFee = 75000; break;
+            case "8th": totalFee = 85000; break;
+            case "9th": totalFee = 95000; break;
+            case "10th": totalFee = 100000; break;
+        }
+
+        // ✅ Paid amount
+        Double paid = feeRepository.getTotalPaid(student.getRollNumber());
+        if (paid == null) paid = 0.0;
+
+        double balance = totalFee - paid;
+
+        // ✅ Send data to UI
         model.addAttribute("student", student);
+        model.addAttribute("totalFee", totalFee);
+        model.addAttribute("balance", balance);
+
         return "fee_table";
     }
-
     // 💳 Open Payment Page
     @GetMapping("/pay/{rollNumber}")
     public String payPage(@PathVariable Integer rollNumber, Model model) {
@@ -280,4 +301,5 @@ public class FeeController {
 
         return "student_fee_details"; // ✅ your new page
     }
+    
 }

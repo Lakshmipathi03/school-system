@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #c3cfe2, #c3e0e5);
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,22 +16,36 @@
 
         .container {
             background: white;
-            padding: 30px 40px;
+            padding: 35px 40px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             width: 400px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
+        /* School Name */
+        .school-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Title */
         h2 {
-            text-align: center;
             margin-bottom: 20px;
             color: #333;
+            border-bottom: 3px solid #74ebd5;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         p {
             font-size: 15px;
             margin: 10px 0;
             color: #555;
+            text-align: left;
         }
 
         span {
@@ -44,6 +58,7 @@
             margin-top: 15px;
             font-weight: 500;
             color: #555;
+            text-align: left;
         }
 
         select {
@@ -56,11 +71,17 @@
             font-size: 14px;
         }
 
+        select:focus {
+            border-color: #74ebd5;
+            box-shadow: 0 0 6px rgba(116, 235, 213, 0.6);
+            outline: none;
+        }
+
         button {
             width: 100%;
             margin-top: 20px;
             padding: 12px;
-            background: #6a11cb;
+            background: #74ebd5; /* MATCHED */
             color: white;
             border: none;
             border-radius: 8px;
@@ -70,7 +91,27 @@
         }
 
         button:hover {
-            background: #4a0ca3;
+            background: #5ec2b8; /* MATCHED */
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
         }
     </style>
 
@@ -79,6 +120,10 @@
 
 <div class="container">
 
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
+
+    <!-- Title -->
     <h2>✏️ Edit Attendance</h2>
 
     <form th:action="@{/adi/attendance/update/{id}(id=${attendance.id})}" method="post">

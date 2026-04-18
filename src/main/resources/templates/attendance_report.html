@@ -6,45 +6,75 @@
 <style>
 body{
     font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(120deg,#74ebd5,#ACB6E5);
+    background: linear-gradient(135deg,#74ebd5,#ACB6E5); /* MATCHED */
     margin:0;
     padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    min-height:100vh;
 }
 
-/* Main title */
-h2{
+/* Container (Card UI like other pages) */
+.container{
+    background:#fff;
+    padding:30px 40px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    width:90%;
+    max-width:900px;
     text-align:center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Titles */
+.school-name{
+    font-size:22px;
+    font-weight:bold;
     color:#333;
-    margin-top:30px;
+    margin-bottom:5px;
 }
 
-/* Subtitle */
+h2{
+    color:#333;
+    margin-bottom:20px;
+    border-bottom:3px solid #74ebd5;
+    display:inline-block;
+    padding-bottom:5px;
+}
+
 h3{
-    margin-top:30px;
+    margin-top:25px;
     color:#444;
-    text-align:center;
 }
 
 /* Forms */
 form{
     margin-top:15px;
-    text-align:center;
 }
 
-/* Select and date input */
+/* Inputs */
 select,input[type="date"]{
     padding:8px;
-    border-radius:5px;
+    border-radius:6px;
     border:1px solid #ccc;
     font-size:14px;
+    margin-right:10px;
+}
+
+select:focus,input:focus{
+    border-color:#74ebd5;
+    box-shadow:0 0 6px rgba(116,235,213,0.6);
+    outline:none;
 }
 
 /* Buttons */
 button{
     padding:8px 15px;
     border:none;
-    border-radius:5px;
-    background:#007BFF;
+    border-radius:6px;
+    background:#74ebd5; /* MATCHED */
     color:white;
     font-size:14px;
     cursor:pointer;
@@ -52,39 +82,80 @@ button{
 }
 
 button:hover{
-    background:#0056b3;
+    background:#5ec2b8; /* MATCHED */
 }
 
 /* Table */
 table{
-    width:80%;
-    margin:30px auto;
+    width:100%;
+    margin-top:25px;
     border-collapse:collapse;
     background:white;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    border-radius:10px;
+    overflow:hidden;
 }
 
-/* Table header */
+/* Header */
 th{
-    background:#007BFF;
+    background:#74ebd5; /* MATCHED */
     color:white;
     padding:12px;
 }
 
-/* Table cells */
+/* Cells */
 td{
     padding:10px;
     text-align:center;
+    color:#333;
 }
 
 /* Alternate rows */
 tr:nth-child(even){
-    background:#f2f2f2;
+    background:#f9f9f9;
 }
 
-/* Hover effect */
+/* Hover */
 tr:hover{
-    background:#e6f2ff;
+    background:#e8f8f5;
+}
+
+/* Status colors */
+.present{
+    color:green;
+    font-weight:bold;
+}
+
+.absent{
+    color:red;
+    font-weight:bold;
+}
+
+/* Animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Responsive */
+@media(max-width:600px){
+    .container{
+        padding:20px;
+    }
+
+    th,td{
+        font-size:12px;
+        padding:8px;
+    }
+
+    .school-name{
+        font-size:18px;
+    }
 }
 </style>
 
@@ -92,58 +163,63 @@ tr:hover{
 
 <body>
 
-<h2>Attendance Report</h2>
+<div class="container">
 
-<form action="/adi/attendance/report" method="get">
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-<select name="className">
-<option value="5th">5th</option>
-<option value="6th">6th</option>
-<option value="7th">7th</option>
-<option value="8th">8th</option>
-<option value="9th">9th</option>
-<option value="10th">10th</option>
-</select>
+    <!-- Title -->
+    <h2>📊 Attendance Report</h2>
 
-<button type="submit">Generate Report</button>
+    <!-- Class Filter -->
+    <form action="/adi/attendance/report" method="get">
+        <select name="className">
+            <option value="5th">5th</option>
+            <option value="6th">6th</option>
+            <option value="7th">7th</option>
+            <option value="8th">8th</option>
+            <option value="9th">9th</option>
+            <option value="10th">10th</option>
+        </select>
+        <button type="submit">Generate Report</button>
+    </form>
 
-</form>
+    <!-- Date Filter -->
+    <h3>Filter by Date</h3>
 
-<h3>Filter by Date</h3>
+    <form action="/adi/attendance/date" method="get">
+        <input type="date" name="date" required>
+        <button type="submit">Search</button>
+    </form>
 
-<form action="/adi/attendance/date" method="get">
+    <!-- PDF Button -->
+    <div style="margin-top:15px;">
+        <a href="/adi/attendance/pdf">
+            <button>📥 Download PDF</button>
+        </a>
+    </div>
 
-<input type="date" name="date" required>
+    <!-- Table -->
+    <table>
+        <tr>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
 
-<button type="submit">Search</button>
+        <tr th:each="attendance : ${attendances}">
+            <td th:text="${attendance.student.name}"></td>
+            <td th:text="${attendance.student.className}"></td>
+            <td>
+                <span th:text="${attendance.status}"
+                      th:classappend="${attendance.status == 'Present'} ? 'present' : 'absent'"></span>
+            </td>
+            <td th:text="${attendance.date}"></td>
+        </tr>
+    </table>
 
-</form>
-
-<div style="text-align:center; margin-top:15px;">
-<a href="/adi/attendance/pdf">
-<button>Download PDF</button>
-</a>
 </div>
-
-<br>
-
-<table border="1">
-
-<tr>
-<th>Student Name</th>
-<th>Class</th>
-<th>Status</th>
-<th>Date</th>
-</tr>
-
-<tr th:each="attendance : ${attendances}">
-<td th:text="${attendance.student.name}"></td>
-<td th:text="${attendance.student.className}"></td>
-<td th:text="${attendance.status}"></td>
-<td th:text="${attendance.date}"></td>
-</tr>
-
-</table>
 
 </body>
 </html>

@@ -53,12 +53,14 @@ public class AttendanceController {
 
     // 🟢 Step 3: Save attendance for multiple students
     @PostMapping("/attendance/save")
-    public String saveAttendance(@RequestParam("studentId") List<Long> studentIds,
-                                 @RequestParam("status") List<String> statuses,
-                                 @RequestParam("className") String className,
-                                 Model model) {
+    public String saveAttendance(
+            @RequestParam("studentId") List<Long> studentIds,
+            @RequestParam("status") List<String> statuses,
+            @RequestParam("className") String className,
+            @RequestParam("date") String selectedDate,   // ✅ NEW
+            Model model) {
 
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.parse(selectedDate);  // ✅ USE SELECTED DATE
 
         for (int i = 0; i < studentIds.size(); i++) {
             Student student = studentRepository.findById(studentIds.get(i)).orElse(null);
@@ -69,10 +71,11 @@ public class AttendanceController {
         }
 
         model.addAttribute("message", "✅ Attendance saved successfully!");
-        model.addAttribute("attendances", attendanceRepository.findByStudent_ClassName(className));
+        model.addAttribute("attendances",
+                attendanceRepository.findByStudent_ClassName(className));
+
         return "attendance_list";
     }
-
     // 🟢 Step 4: View all attendance records
     @GetMapping("/attendances")
     public String viewAllAttendance(Model model) {
@@ -190,5 +193,41 @@ public class AttendanceController {
         document.add(table);
 
         document.close();
+    }
+    @GetMapping("/attendance/student-report")
+    public String studentAttendanceReport(
+            @RequestParam(required = false) Integer rollNumber,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
+            Model model) {
+
+        if (rollNumber == null || startDate == null || endDate == null) {
+            return "attendance_report1";
+        }
+
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+
+        Student student = studentRepository.findByRollNumber(rollNumber);
+
+        if (student == null) {
+            model.addAttribute("error", "❌ Student not found!");
+            return "attendance_report1";
+        }
+
+        List<Attendance> list =
+                attendanceRepository.findByStudentAndDateBetween(student, start, end);
+
+        // ✅ DEBUG FIXED
+        System.out.println("Roll: " + rollNumber);
+        System.out.println("Start: " + start);
+        System.out.println("End: " + end);
+        System.out.println("Records found: " + list.size());
+
+        model.addAttribute("attendances", list);
+        model.addAttribute("studentName", student.getName());
+        model.addAttribute("rollNumber", rollNumber);
+
+        return "attendance_report1";
     }
 }

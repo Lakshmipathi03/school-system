@@ -5,111 +5,106 @@
 
     <style>
         body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg,#74ebd5,#ACB6E5);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            flex-direction: column;
+            min-height: 100vh;
             margin: 0;
         }
 
         .container {
-            background-color: #ffffff;
-            padding: 40px 50px;
+            background: #fff;
+            padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 95%;
+            max-width: 1200px; /* 🔥 FIXED */
             text-align: center;
-            width: 500px;
         }
 
         h2 {
-            color: #333;
-            font-size: 26px;
-            margin-bottom: 25px;
-            border-bottom: 3px solid #ff9a9e;
-            display: inline-block;
-            padding-bottom: 5px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        /* 🔥 ADD SCROLL */
+        .table-wrapper {
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
+            min-width: 1200px; /* 🔥 IMPORTANT */
             border-collapse: collapse;
-            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
         }
 
         th {
-            background-color: #ff9a9e;
-            color: white;
-            padding: 12px;
-            font-size: 16px;
+            background: #74ebd5;
+            color: #fff;
         }
 
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            font-size: 15px;
-            color: #333;
+        tr:nth-child(even) {
+            background: #f9f9f9;
         }
 
         tr:hover {
-            background-color: #f9f9f9;
+            background: #e8f8f5;
+        }
+
+        /* 🔥 BUTTON STYLE FIX */
+        .btn {
+            text-decoration: none;
+            background: #74ebd5;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin: 2px;
+            display: inline-block;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #5ec2b8;
+        }
+
+        .delete-btn {
+            background: #f44336;
+        }
+
+        .delete-btn:hover {
+            background: #c62828;
         }
 
         .back-btn {
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .back-btn a {
             text-decoration: none;
-            background-color: #ff9a9e;
+            background: #74ebd5;
             color: white;
             padding: 10px 15px;
             border-radius: 8px;
-            transition: 0.3s;
+            margin: 5px;
+            display: inline-block;
         }
 
         .back-btn a:hover {
-            background-color: #f97b8b;
+            background: #5ec2b8;
         }
-
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-                padding: 30px;
-            }
-            h2 {
-                font-size: 22px;
-            }
-        }
-        .edit {
-    text-decoration: none;
-    background-color: #4CAF50;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin-right: 5px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.edit:hover {
-    background-color: #45a049;
-}
-
-.delete {
-    text-decoration: none;
-    background-color: #e74c3c;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.delete:hover {
-    background-color: #c0392b;
-}
     </style>
 </head>
 
@@ -118,30 +113,46 @@
 <div class="container">
     <h2>Student Details</h2>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Roll Number</th>
-            <th>Class</th>
-            <th>Action</th>
-        </tr>
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>S.No</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Full Name</th>
+                <th>Class</th>
+                <th>Roll No</th>
+                <th>Father</th>
+                <th>Mother</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Student Aadhar</th>
+                <th>Father Aadhar</th>
+                
+            </tr>
 
-        <tr>
-            <td th:text="${student.name}"></td>
-            <td th:text="${student.rollNumber}"></td>
-            <td th:text="${student.className}"></td>
-            <td>
-            <a th:href="@{'/adi/edit/' + ${student.id}}" class="edit">Edit</a>
-            <a th:href="@{'/adi/delete/' + ${student.id}}"
-               onclick="return confirm('Are you sure you want to delete?')"
-               class="delete">Delete</a>
-        </td>
-        </tr>
-    </table>
+            <tr>
+    <td>1</td>
+    <td th:text="${student.id}"></td>
+    <td th:text="${student.name}"></td>
+    <td th:text="${student.fullName}"></td>
+    <td th:text="${student.className}"></td>
+    <td th:text="${student.rollNumber}"></td>
+    <td th:text="${student.fatherName}"></td>
+    <td th:text="${student.motherName}"></td>
+    <td th:text="${student.mobileNumber}"></td>
+    <td th:text="${student.email}"></td>
+    <td th:text="${student.address}"></td>
+    <td th:text="${student.studentAadhar}"></td>
+    <td th:text="${student.fatherAadhar}"></td>
+</tr>
+        </table>
+    </div>
 
     <div class="back-btn">
         <a href="/adi/searchByRoll">🔙 Back</a>
-        <a href="/adi/home"> Back to Home Page </a>
+        <a href="/adi/home">🏠 Home</a>
     </div>
 </div>
 

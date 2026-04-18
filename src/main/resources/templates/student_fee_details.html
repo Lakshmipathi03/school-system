@@ -5,66 +5,105 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            width: 850px;
+            width: 85%;
             margin: 40px auto;
             background: white;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px gray;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         h2 {
             text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
         }
 
         p {
             font-size: 16px;
+            color: #333;
+        }
+
+        .summary {
+            background: #eef6ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        table, th, td {
-            border: 1px solid #999;
-        }
-
-        th {
-            background: #007bff;
-            color: white;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #74ebd5;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #e8f8f5;
+            transition: 0.3s;
         }
 
         .btn {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            background: green;
+            background: #74ebd5;
             color: white;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
         }
 
         .btn:hover {
-            background: darkgreen;
+            background: #5ec2b8;
+            transform: scale(1.05);
         }
 
-        .summary {
-            background: #f1f1f1;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            table {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -75,19 +114,16 @@
 
     <h2>📊 Student Fee Details</h2>
 
-    <!-- Student Info -->
     <p><b>Name:</b> <span th:text="${student.name}"></span></p>
     <p><b>Class:</b> <span th:text="${student.className}"></span></p>
     <p><b>Roll No:</b> <span th:text="${student.rollNumber}"></span></p>
 
-    <!-- Summary -->
     <div class="summary">
         <p><b>Total Fee:</b> ₹ <span th:text="${totalFee}"></span></p>
         <p><b>Total Paid:</b> ₹ <span th:text="${paid}"></span></p>
         <p><b>Balance:</b> ₹ <span th:text="${balance}"></span></p>
     </div>
 
-    <!-- Fee Records Table -->
     <h3>🧾 Payment History</h3>
 
     <table>
@@ -110,7 +146,6 @@
         </tr>
     </table>
 
-    <!-- Pay Button -->
     <div style="text-align:center;">
         <a th:href="@{'/adi/fees/pay/' + ${student.rollNumber}}">
             <button class="btn">💳 Proceed to Pay</button>

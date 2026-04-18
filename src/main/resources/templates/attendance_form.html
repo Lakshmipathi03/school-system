@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,11 +22,15 @@
             width: 90%;
             max-width: 800px;
             text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
         h2 {
             color: #333;
             margin-bottom: 25px;
+            border-bottom: 3px solid #74ebd5; /* MATCHED */
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         table {
@@ -42,7 +46,7 @@
         }
 
         th {
-            background: #66a6ff;
+            background: #74ebd5; /* MATCHED */
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -65,8 +69,13 @@
             background: #f8f9fa;
         }
 
+        select:focus {
+            border-color: #74ebd5;
+            box-shadow: 0 0 6px rgba(116, 235, 213, 0.6);
+        }
+
         button {
-            background: #66a6ff;
+            background: #74ebd5; /* MATCHED */
             border: none;
             color: #fff;
             font-size: 16px;
@@ -78,19 +87,44 @@
         }
 
         button:hover {
-            background: #4d8aff;
+            background: #5ec2b8; /* MATCHED */
         }
 
         .back-link {
             margin-top: 15px;
             display: inline-block;
-            color: #333;
+            color: #74ebd5; /* MATCHED */
             text-decoration: none;
             font-size: 14px;
+            font-weight: 600;
         }
 
         .back-link:hover {
-            color: #66a6ff;
+            color: #5ec2b8;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
@@ -101,6 +135,8 @@
 
     <form th:action="@{/adi/attendance/save}" method="post">
         <input type="hidden" name="className" th:value="${className}" />
+        <label>Select Date:</label>
+<input type="date" name="date" required>
 
         <table>
             <tr>

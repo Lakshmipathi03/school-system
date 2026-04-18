@@ -2,96 +2,166 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>All Students Marks</title>
+
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background: linear-gradient(135deg,#74ebd5,#ACB6E5);
-            padding: 40px;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        h2 {
+        /* Container */
+        .container {
+            width: 95%;
+            max-width: 1100px;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             text-align: center;
-            color: #333;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
+        /* School Name */
+        .school-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Title */
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #74ebd5;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Table */
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 15px;
             border-radius: 10px;
             overflow: hidden;
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
-            border-bottom: 1px solid #ddd;
         }
 
         th {
-            background-color: #66a6ff;
+            background: #74ebd5; /* MATCHED */
             color: white;
         }
 
-        tr:hover {
-            background-color: #f2f2f2;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
+        tr:hover {
+            background-color: #e8f8f5;
+        }
+
+        /* Total Highlight */
         .total {
             font-weight: bold;
             color: green;
         }
 
+        /* Back Button */
         .back-btn {
             display: inline-block;
             margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #66a6ff;
+            padding: 12px 25px;
+            background: #74ebd5;
             color: white;
             text-decoration: none;
             border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #5ec2b8;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px;
+            }
+
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<h2>All Students Marks List</h2>
+<div class="container">
 
-<table>
-    <thead>
-        <tr>
-            <th>Student Name</th>
-            <th>Roll No</th>
-            <th>Class</th>
-            <th>English</th>
-            <th>Sanskrit</th>
-            <th>Maths</th>
-            <th>Science</th>
-            <th>Chemistry</th>
-            <th>Social</th>
-            <th>Total</th>
-        </tr>
-    </thead>
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-    <tbody>
-        <tr th:each="mark : ${marksList}">
-            <td th:text="${mark.student.name}"></td>
-            <td th:text="${mark.student.rollNumber}"></td>
-            <td th:text="${mark.student.className}"></td>
-            <td th:text="${mark.english}"></td>
-            <td th:text="${mark.sanskrit}"></td>
-            <td th:text="${mark.mathas}"></td>
-            <td th:text="${mark.science}"></td>
-            <td th:text="${mark.chemistry}"></td>
-            <td th:text="${mark.social}"></td>
-            <td th:text="${mark.totalMarks}" class="total"></td>
-        </tr>
-    </tbody>
-</table>
+    <h2>📊 All Students Marks List</h2>
 
-<br>
-<a href="/marks/select-class" class="back-btn">Back</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Class</th>
+                <th>English</th>
+                <th>Sanskrit</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>Chemistry</th>
+                <th>Social</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="mark : ${marksList}">
+                <td th:text="${mark.student.name}"></td>
+                <td th:text="${mark.student.rollNumber}"></td>
+                <td th:text="${mark.student.className}"></td>
+                <td th:text="${mark.english}"></td>
+                <td th:text="${mark.sanskrit}"></td>
+                <td th:text="${mark.mathas}"></td>
+                <td th:text="${mark.science}"></td>
+                <td th:text="${mark.chemistry}"></td>
+                <td th:text="${mark.social}"></td>
+                <td th:text="${mark.totalMarks}" class="total"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/marks/select-class" class="back-btn">🔙 Back</a>
+
+</div>
 
 </body>
 </html>

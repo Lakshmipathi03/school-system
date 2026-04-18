@@ -1,6 +1,8 @@
 package com.example.school.repository;
 
 import com.example.school.model.Attendance;
+import com.example.school.model.Student;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +22,10 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
             LocalDate endDate
     );
 
+
     // ⭐ filter by date
     List<Attendance> findByDate(LocalDate date);
+    List<Attendance> findByStudentAndDateBetween(Student student,
+            LocalDate start,
+            LocalDate end);
 }

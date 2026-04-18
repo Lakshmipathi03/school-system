@@ -6,7 +6,7 @@
 <style>
     body {
         font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(135deg, #89f7fe, #66a6ff);
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* SAME THEME */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -21,16 +21,23 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         text-align: center;
         width: 350px;
+        animation: fadeIn 0.6s ease-in-out;
     }
 
     h2 {
         margin-bottom: 20px;
         color: #333;
+        border-bottom: 3px solid #74ebd5; /* MATCHED */
+        display: inline-block;
+        padding-bottom: 5px;
     }
 
     label {
         font-weight: 500;
         color: #555;
+        display: block;
+        margin-top: 10px;
+        text-align: left;
     }
 
     select {
@@ -42,13 +49,19 @@
         outline: none;
         font-size: 14px;
         background: #f9f9f9;
+        transition: 0.3s;
+    }
+
+    select:focus {
+        border-color: #74ebd5;
+        box-shadow: 0 0 8px rgba(116, 235, 213, 0.6);
     }
 
     button {
         width: 100%;
         margin-top: 20px;
         padding: 12px;
-        background: #66a6ff;
+        background: #74ebd5; /* MATCHED */
         color: white;
         border: none;
         border-radius: 8px;
@@ -58,7 +71,27 @@
     }
 
     button:hover {
-        background: #4d8aff;
+        background: #5ec2b8; /* MATCHED */
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+        .container {
+            width: 90%;
+            padding: 25px;
+        }
     }
 </style>
 
@@ -83,7 +116,7 @@
             <option value="10th">10th</option>
         </select>
 
-        <button type="submit">  Continue</button>
+        <button type="submit">Continue</button>
 
     </form>
 

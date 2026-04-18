@@ -5,62 +5,90 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #dfe9f3, #ffffff);
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
             margin: 0;
-            padding: 0;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* Container */
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        /* School Name */
+        .school-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Title */
         h2 {
             color: #333;
-            margin-top: 20px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #74ebd5;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
+        /* Form */
         form {
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         select {
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid #ccc;
             outline: none;
+            margin-right: 10px;
         }
 
         button {
-            padding: 10px 15px;
-            background: #4CAF50;
+            padding: 10px 20px;
+            background: #74ebd5;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
 
         button:hover {
-            background: #45a049;
+            background: #5ec2b8;
         }
 
+        /* Table */
         table {
-            margin: 30px auto;
+            margin-top: 25px;
+            width: 100%;
             border-collapse: collapse;
-            width: 90%;
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-radius: 10px;
             overflow: hidden;
         }
 
-        th {
-            background: linear-gradient(to right, #4CAF50, #2e7d32);
-            color: white;
+        th, td {
             padding: 12px;
+            text-align: center;
         }
 
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+        th {
+            background: #74ebd5;
+            color: white;
         }
 
         tr:nth-child(even) {
@@ -68,14 +96,15 @@
         }
 
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #e8f8f5;
             transition: 0.3s;
         }
 
+        /* Action Buttons */
         a {
             padding: 6px 12px;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 13px;
             margin: 2px;
             display: inline-block;
@@ -99,67 +128,92 @@
             background: #c62828;
         }
 
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<h2>Select Class</h2>
+<div class="container">
 
-<form action="/marks/view-by-class" method="get">
-    <label for="className">Select Class:</label>
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
 
-    <select name="className" id="className" required>
-        <option value="">--Select Class--</option>
-        <option value="5th">Class 5</option>
-        <option value="6th">Class 6</option>
-        <option value="7th">Class 7</option>
-        <option value="8th">Class 8</option>
-        <option value="9th">Class 9</option>
-        <option value="10th">Class 10</option>
-    </select>
+    <h2>Select Class</h2>
 
-    <button type="submit">View</button>
-</form>
+    <form action="/marks/view-by-class" method="get">
+        <select name="className" id="className" required>
+            <option value="">--Select Class--</option>
+            <option value="5th">Class 5</option>
+            <option value="6th">Class 6</option>
+            <option value="7th">Class 7</option>
+            <option value="8th">Class 8</option>
+            <option value="9th">Class 9</option>
+            <option value="10th">Class 10</option>
+        </select>
 
-<br><br>
+        <button type="submit">View</button>
+    </form>
 
-<div th:if="${marksList != null}">
+    <div th:if="${marksList != null}">
 
-    <h2 th:text="'Marks List - ' + ${className}"></h2>
+        <h2 th:text="'Marks List - ' + ${className}"></h2>
 
-    <table>
-        <tr>
-            <th>Student Name</th>
-            <th>English</th>
-            <th>Sanskrit</th>
-            <th>Maths</th>
-            <th>Science</th>
-            <th>Chemistry</th>
-            <th>Social</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>English</th>
+                <th>Sanskrit</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>Chemistry</th>
+                <th>Social</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
 
-        <tr th:each="m : ${marksList}">
-            <td th:text="${m.student.name}"></td>
-            <td th:text="${m.english}"></td>
-            <td th:text="${m.sanskrit}"></td>
-            <td th:text="${m.mathas}"></td>
-            <td th:text="${m.science}"></td>
-            <td th:text="${m.chemistry}"></td>
-            <td th:text="${m.social}"></td>
-            <td th:text="${m.totalMarks}"></td>
+            <tr th:each="m : ${marksList}">
+                <td th:text="${m.student.name}"></td>
+                <td th:text="${m.english}"></td>
+                <td th:text="${m.sanskrit}"></td>
+                <td th:text="${m.mathas}"></td>
+                <td th:text="${m.science}"></td>
+                <td th:text="${m.chemistry}"></td>
+                <td th:text="${m.social}"></td>
+                <td th:text="${m.totalMarks}"></td>
 
-            <td>
-                <a th:href="@{'/marks/edit/' + ${m.id}}" class="edit">Edit</a>
-                <a th:href="@{'/marks/delete/' + ${m.id}}" 
-                   onclick="return confirm('Are you sure?')" 
-                   class="delete">Delete</a>
-            </td>
-        </tr>
+                <td>
+                    <a th:href="@{'/marks/edit/' + ${m.id}}" class="edit">✏️ Edit</a>
+                    <a th:href="@{'/marks/delete/' + ${m.id}}" 
+                       onclick="return confirm('Are you sure?')" 
+                       class="delete">🗑 Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-    </table>
 </div>
 
 </body>

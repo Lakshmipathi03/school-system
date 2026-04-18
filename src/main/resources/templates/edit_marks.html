@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); /* MATCHED */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,28 +16,42 @@
 
         .container {
             background: white;
-            padding: 30px 40px;
+            padding: 35px 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             width: 400px;
+            text-align: center;
             animation: fadeIn 0.6s ease-in-out;
         }
 
+        /* School Name */
+        .school-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Title */
         h2 {
-            text-align: center;
             margin-bottom: 25px;
-            color: #2c3e50;
+            color: #333;
+            border-bottom: 3px solid #74ebd5;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         label {
             font-weight: 600;
             display: block;
             margin-bottom: 5px;
+            text-align: left;
+            color: #555;
         }
 
         input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 15px;
             border-radius: 8px;
             border: 1px solid #ccc;
@@ -45,17 +59,17 @@
         }
 
         input:focus {
-            border-color: #4CAF50;
+            border-color: #74ebd5;
             outline: none;
-            box-shadow: 0 0 5px #4CAF50;
+            box-shadow: 0 0 6px rgba(116, 235, 213, 0.6);
         }
 
         button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 10px;
-            background: #4CAF50;
+            background: #74ebd5; /* MATCHED */
             color: white;
             font-size: 16px;
             font-weight: bold;
@@ -64,13 +78,22 @@
         }
 
         button:hover {
-            background: #45a049;
-            transform: scale(1.05);
+            background: #5ec2b8; /* MATCHED */
+            transform: scale(1.03);
         }
 
+        /* Animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
         }
 
     </style>
@@ -80,6 +103,10 @@
 
 <div class="container">
 
+    <!-- School Name -->
+    <div class="school-name">Mother Theresa English Medium School</div>
+
+    <!-- Title -->
     <h2>✏️ Edit Marks</h2>
 
     <form th:action="@{'/marks/update/' + ${marks.id}}" method="post">
@@ -102,7 +129,7 @@
         <label>Social</label>
         <input type="number" name="social" th:value="${marks.social}" min="0" max="100">
 
-        <button type="submit">Update Marks</button>
+        <button type="submit">✅ Update Marks</button>
 
     </form>
 

@@ -40,19 +40,22 @@ public class ResultController {
             }
 
             // TOPPER
-            int highest = 0;
+            int highest = -1;
+
             for (Marks m : marksList) {
-                if (m.getTotalMarks() > highest) {
-                    highest = m.getTotalMarks();
+                if ("PASS".equals(m.getResult())) {
+                    if (m.getTotalMarks() > highest) {
+                        highest = m.getTotalMarks();
+                    }
                 }
             }
 
+            // assign topper ONLY if PASS
             for (Marks m : marksList) {
-                if (m.getTotalMarks() == highest) {
+                if ("PASS".equals(m.getResult()) && m.getTotalMarks() == highest) {
                     m.setTopper(true);
                 }
             }
-
             model.addAttribute("marksList", marksList);
             model.addAttribute("className", className);
         }
@@ -62,5 +65,25 @@ public class ResultController {
     @GetMapping("/about")
     public String home_Student() {
     	return "about";
+    }
+    @GetMapping("/Departments")
+    	public String home_Student1() {
+    		return "Departments";
+    	}
+    @GetMapping("/Faculty")
+    public String home_Student2() {
+    	return "Faculty";
+    }
+    @GetMapping("/Contact")
+    public String home_Student3() {
+    	return "Contact";
+    }
+    @GetMapping("/Rancks")
+    public String home_Student4() {
+    	return "Rancks";
+    }
+    @GetMapping("/Facilities")
+    public String home_Student5() {
+    	return "Facilities";
     }
 }
